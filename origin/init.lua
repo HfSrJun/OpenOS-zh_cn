@@ -18,8 +18,8 @@ while true do
     return tostring(msg).."\n"..debug.traceback()
   end)
   if not result then
-    io.stderr:write((reason ~= nil and tostring(reason) or "unknown error") .. "\n")
-    io.write("Press any key to continue.\n")
+    io.stderr:write((reason ~= nil and tostring(reason) or "未知错误") .. "\n")
+    io.write("请按任意键继续。\n")
     os.sleep(0.5)
     require("event").pull("key")
   end
