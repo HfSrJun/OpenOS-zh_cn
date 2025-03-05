@@ -1,9 +1,7 @@
 local count = 0
 
 function start(msg)
-  print("This script displays a welcome message and counts the number " ..
-  "of times it has been called. The welcome message can be set in the " ..
-  "config file /etc/rc.cfg")
+  print("该脚本显示了一条欢迎信息，并计数自身被调用的次数。欢迎信息可以在`/etc/rc.cfg`配置文件中修改。")
   print(args)
   if msg then
     print(msg)
