@@ -1,27 +1,27 @@
-NAME
-  less - file viewer
+名称
+  less - 文件查看器
 
-SYNOPSIS
+用法
   less [FILE]
 
-DESCRIPTION
-  'less' is similar to `more`, but with buffering. This allows to you scroll back and forward a single line at a time.
+描述
+  'less'与`more`类似，但是带缓存，允许你每次向上或向下滚动一行。
 
-COMMANDS
-  q        quit
-  up       scroll up one line
-  down     scroll down one line
-  space
-  pgdown   scroll down one page
-  pgup     scroll up one page
-  home     scroll to the start of the buffer
-  end      scroll to the end of the buffer
+命令
+  q         退出
+  上方向键  向上滚动一行
+  下方向键  向下滚动一行
+  空格键
+  pgdown    向下滚动一页
+  pgup      向上滚动一页
+  home      滚动到缓存的开头
+  end       滚动到缓存的结尾
 
-EXAMPLES
+样例
   less example.txt
-    Displays the contents of file `example.txt`
+    显示文件`example.txt`的内容
   find / | less
-    filter the output of `file /` through the 'less' pager
+    通过`less`分页器过滤`file /`的输出
 
-SEE ALSO
+另请参见
   more

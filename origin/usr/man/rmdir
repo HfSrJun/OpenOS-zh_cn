@@ -1,9 +1,9 @@
-NAME
-  rmdir - remove empty directories
+名称
+  rmdir - 删除空目录
 
-SYNOPIS
+用法
   rmdir [DIRECTORY]
 
-EXAMPLES
+样例
   rmdir doc
-    Removes doc if and only if doc is an empty directory
+    当且仅当doc为空目录时，删除doc

@@ -1,15 +1,15 @@
-NAME
-  man - help program, providing help on various programs and topics
+名称
+  man - 帮助程序，提供各种程序与主题的帮助信息
 
-SYNOPSIS
+用法
   man topic
 
-DESCRIPTION
-  `man` is the system's help viewer. Each help topic is normally the name of a program or library. Topics are stored as individual text files in the `/usr/man` folder. Additional help topics can be provided by creating a symbolic link to a file.
+描述
+  `man`是操作系统的帮助信息查看器。帮助信息的主题通常是程序或运行库的名称。主题以各自独立的文本文件形式存放在`/usr/man`文件夹中。创建指向某个文件的符号链接即可添加帮助主题。
 
-EXAMPLES
+样例
   man man
-    Display the help for the `man` program.
+    显示`man`程序的帮助信息。
 
   man ls
-    Display the help for the `ls` program.
+    显示`ls`程序的帮助信息。

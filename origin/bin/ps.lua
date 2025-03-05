@@ -3,7 +3,7 @@ local unicode = require("unicode")
 local event = require("event")
 local event_mt = getmetatable(event.handlers)
 
--- WARNING this code does not use official kernel API and is likely to change
+-- 警告：这些代码并未使用官方的内核API，很可能会进行改动
 
 local data = {}
 local widths = {}
@@ -16,7 +16,7 @@ local function thread_id(t,p)
   if t then
     return tostring(t):gsub("^thread: 0x", "")
   end
-  -- find the parent thread
+  -- 寻找父线程
   for k,v in pairs(process.list) do
     if v == p then
       return thread_id(k)
@@ -42,7 +42,7 @@ local cols =
     return count == 0 and "-" or tostring(count)
   end},
   {"THREADS", function(_,p)
-    -- threads are handles with mt.close == thread.waitForAll
+    -- 线程由mt.close == thread.waitForAll处理
     local count = 0
     for _,h in ipairs(p.data.handles) do
       local mt = getmetatable(h)
@@ -114,7 +114,7 @@ local function make_elbow(depth)
   return (" "):rep(depth - 1) .. (depth > 0 and elbow or "")
 end
 
--- remove COLUMN labels to simplify sort
+-- 移除COLUMN标签来简化排序
 move_to_sorted(1)
 
 local function update_family(parent, depth)
@@ -134,7 +134,7 @@ local function update_family(parent, depth)
 end
 
 update_family()
-table.remove(cols, parent_index) -- don't show parent id
+table.remove(cols, parent_index) -- 不显示父id
 
 for _,set in ipairs(sorted) do
   local split = ""

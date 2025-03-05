@@ -1,15 +1,15 @@
-NAME
-  hostname - Display and modify hostname
+名称
+  hostname - 显示与修改主机名
 
-SYNOPIS
+用法
   hostname [NEW NAME] [--update]
 
-EXAMPLES
+样例
   hostname
-    Prints currently set hostname
+    输出现在设定的主机名
 
   hostname test
-    Sets hostname of this computer to test
+    将这台电脑的主机名设为“test”
 
   hostname --update
-    Updates $HOSTNAME by reading /etc/hostname in case it was set manually. Does not print to stdout
+    通过读取`/etc/hostname`来更新$HOSTNAME，以备手动设定主机名。不会在标准输出上显示。

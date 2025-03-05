@@ -1,12 +1,12 @@
-NAME
-  clear - clears the terminal
+名称
+  clear - 清空终端内容
 
-SYNOPSIS
+用法
   clear
 
-DESCRIPTION
-  Clears any text from the screen, using the current background and foreground (text) colors and resets the cursor position to (1, 1).
+描述
+  清除屏幕上的一切文本，保留当前设定的背景与前景（文本）颜色，并将光标位置移动到(1, 1)。
 
-EXAMPLES
+样例
   clear
-    Clears the screen/
+    清空屏幕。

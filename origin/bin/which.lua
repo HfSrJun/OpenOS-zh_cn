@@ -2,7 +2,7 @@ local shell = require("shell")
 
 local args = shell.parse(...)
 if #args == 0 then
-  io.write("Usage: which <program>\n")
+  io.write("用法: which <程序名>\n")
   return 255
 end
 
@@ -12,7 +12,7 @@ for i = 1, #args do
   if not result then
     result = shell.getAlias(args[i])
     if result then
-      result = args[i] .. ": aliased to " .. result
+      result = args[i] .. ": 是" .. result .. "的别名" 
     end
   end
 

@@ -7,7 +7,7 @@ if op.P then
   path, why = fs.realPath(path)
 end
 if not path then
-  io.stderr:write(string.format("error retrieving current directory: %s", why))
+  io.stderr:write(string.format("搜索当前目录时失败: %s", why))
   os.exit(1)
 end
 

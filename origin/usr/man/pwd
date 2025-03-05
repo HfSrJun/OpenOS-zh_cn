@@ -1,12 +1,12 @@
-NAME
-  pwd - print name of current/working directory
+名称
+  pwd - 输出当前工作目录的名称
 
-SYNOPSIS
+用法
   pwd
 
-DESCRIPTION
-  `pwd` writes the name of the current working directory to the standard output.
+描述
+  `pwd`会输出当前工作目录的名称到标准输出中。
 
-EXAMPLES
+样例
   pwd
-    Write the current directory to the terminal.
+    将当前目录输出到终端上。

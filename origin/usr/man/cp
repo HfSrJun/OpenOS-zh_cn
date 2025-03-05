@@ -1,16 +1,16 @@
-NAME
-  cp - copy files
+名称
+  cp - 复制文件
 
-SYNOPSIS
+用法
   cp SOURCE DEST
   cp SOURCE DIRECTORY
 
-DESCRIPTION
-  `cp` allows copying single files on a filesystem and across filesystems.
+描述
+  `cp`可以将一个文件在文件系统内或跨文件系统进行复制。
 
-EXAMPLES
+样例
   cp a b
-    Copy file `a` to new file `b` in the same directory.
+    将文件`a`复制一份，在同一个目录中保存为文件`b`。
 
   cp /home/a.txt /home/d/
-    Copy file `/home/a.txt` to new file `/home/d/a.txt`.
+    将文件`/home/a.txt`复制一份，保存为`/home/d/a.txt`。

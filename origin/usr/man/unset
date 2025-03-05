@@ -1,15 +1,15 @@
-NAME
-  unset - remove an environment variable
+名称
+  unset - 删除一个环境变量
 
-SYNOPSIS
+用法
   unset [VARNAME]
 
-DESCRIPTION
-  Removes an environment variable
+描述
+  删除一个环境变量
 
-EXAMPLES
+样例
   unset some_variable
-    Removes the environment variable some_variable
+    删除名为`some_variable`的环境变量
 
-SEE ALSO
+另请参见
   set

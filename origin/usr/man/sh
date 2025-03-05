@@ -1,43 +1,43 @@
-NAME
-  sh - command interpreter (shell)
+名称
+  sh - 命令解释器（shell）
 
-SYNOPSIS
+用法
   sh
 
-DESCRIPTION
-  This is the basic, built-in standard shell of OpenOS. It provides basic functionality and does the job for getting started. To run a command, enter it and press enter. The first token in a command will usually be a program. Any additional parameters will be passed along to the program.
+描述
+  这是OpenOS基础的，内置的标准shell。它提供了基本功能，可满足简单需求。要运行命令，请输入命令并按回车键。命令中的第一个标记通常是一个程序。任何其他参数都将传递给该程序。
 
-  Arguments to programs can be quoted, to provide strings with multiple spaces in them, for example:
+  传递给程序的参数可以用双引号括起来，这样可以传递含有多个空格的字符串，例如：
     echo "a   b"
-  will print the string `a   b` to the screen. It is also possible to use single quotes (echo 'a b').
+  将会输出字符串`a   b`到显示屏上，用单引号也可以。（echo 'a b'）
 
-  Single quotes also suppress variable expansion. Per default, expressions like `$NAME` and `${NAME}` are expanded using environment variables (also accessible via the `os.getenv` method).
+  单引号也可以阻止变量的展开。默认情况下，类似`$NAME`与`${NAME}`这样的表达式会借助环境变量展开（也可通过`os.getenv`方法访问）。
 
-  Globbing is supported, i.e. '*' and '?' are expanded approriately. For example:
+  支持通配符，即`*`与`?`会按照格式推广，例如：
     ls b?n/
-  will list all files in `/bin/` (and, if it exists `/ban` and so on).
+  将会列出`/bin/`中的所有文件（并且如果`/ban`等目录存在的话也会列出）。
     cp /bin/* /usr/bin/
-  will copy all files from `/bin` to `/usr/bin`.
+  会将`/bin`中的所有文件复制到`/usr/bin`。
 
-  The shell provides redirects and piping:
+  shell提供了重定向和管道功能：
     cat f > f2
-  copies the contents of file `f` to `f2`, for example.
+  将文件`f`中的内容复制到`f2`。
     echo 'this  is  a  "test"' >> f2
-  will append the string 'this is a "test"' to the file `f2`.
+  会将字符串'this is a "test"'追加到文件`f2`中。
     2>/dev/null ./some_program_with_errors
-  will redirect all stderr to /dev/null [i.e. supress errors].
-  This example also demonstrates redirects can go at the front
+  会重定向所有stderr到`/dev/null`（即不显示报错）。
+  这一样例也表明重定向可以写在前面。
 
-  Redirects can be combined:
+  重定向可以组合：
     cat < f >> f2
-  will feed the contents of file `f` to cat, which will then output it (in append mode) to file `f2`.
+  会将文件`f`的内容输出给`cat`，然后`cat`会将其（以追加模式）输出到文件`f2`。
 
-  Finally, pipes can be used to pass data between programs:
+  最后，管道还可用于在两个程序之间传递数据：
     ls | cat > f
-  will enumerate the files and directories in the working directory, write them to its output stream, which is cat's input stream, which will in turn write the data to file `f`.
+  将会枚举工作目录下的文件和目录，写入其输出流，也就是`cat`的输入流，然后`cat`会将数据写入到文件`f`中。
 
-  The shell also supports aliases, which can be created using `alias` and removed using `unalias` (or using the `shell` API). For example, `dir` is a standard alias for `ls`.
+  shell也支持别名，别名可通过`alias`创建，通过`unalias`移除（或者使用`shell` API）。例如，`dir`是`ls`的默认别名。
 
-EXAMPLES
+样例
   sh
-    Starts a new shell.
+    开启一个新shell。

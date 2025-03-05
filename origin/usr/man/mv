@@ -1,22 +1,21 @@
-NAME
-  mv - move (rename) files
+名称
+  mv - 移动（重命名）文件
 
-SYNOPSIS
+用法
   mv SOURCE DEST
 
-DESCRIPTION
-  Renames files - and folders, as long they remain on the same file system. Files that are 'renamed' to another file system will actually be copied, then deleted.
+描述
+  重命名文件与文件夹，只要它们还在原来的文件系统。被“重命名”到其他文件系统的文件实际上会先复制，再删除源文件。
 
-OPTIONS
-  -f         overwrite without prompt
-  -i         prompt before overwriting
-             unless -f
-  -v         verbose
-  -h, --help show this help
+选项
+  -f          不经提示直接覆盖
+  -i          覆盖前先提示，除非`-f`
+  -v          显示详细过程
+  -h, --help  显示该帮助信息
 
-EXAMPLES
+样例
   mv a b
-    Renames file `a` to `b`.
+    将文件`a`重命名为`b`。
 
   mv /home/a /var/b
-    Moves file from `/home/a` to `/var/b`.
+    将`/home/a`中的文件移动到`/var/b`。

@@ -6,19 +6,19 @@ local args, options = shell.parse(...)
 
 local function usage()
   print(
-[[Usage: touch [OPTION]... FILE...
-Update the modification times of each FILE to the current time.
-A FILE argument that does not exist is created empty, unless -c is supplied.
+[[用法: touch [选项]... 文件...
+将给定的各个`文件`的修改时间更新为当前时间。
+不存在的`文件`参数会创建为空文件，除非指定`-c`。
 
-  -c, --no-create    do not create any files
-      --help         display this help and exit]])
+  -c, --no-create    不要创建文件
+      --help         显示该提示文本并退出]])
 end
 
 if options.help then
   usage()
   return 0
 elseif #args == 0 then
-  io.stderr:write("touch: missing operand\n")
+  io.stderr:write("touch: 没有操作对象\n")
   return 1
 end
 
@@ -29,7 +29,7 @@ for _,arg in ipairs(args) do
   local path = shell.resolve(arg)
 
   if fs.isDirectory(path) then
-    io.stderr:write(string.format("`%s' ignored: directories not supported\n", arg))
+    io.stderr:write(string.format("`%s`被忽略: 不支持目录\n", arg))
   else
     local real, reason = fs.realPath(path)
     if real then
@@ -39,13 +39,13 @@ for _,arg in ipairs(args) do
       end
       if not file then
         real = options.c
-        reason = "permission denied"
+        reason = "无权限"
       else
         file:close()
       end
     end
     if not real then
-      io.stderr:write(string.format("touch: cannot touch `%s': %s\n", arg, reason))
+      io.stderr:write(string.format("touch: 无法touch`%s`: %s\n", arg, reason))
       errors = 1
     end
   end

@@ -1,34 +1,33 @@
-NAME
-  grep - Search for PATTERN in each FILE or standard input. PATTERN is, by default, a Lua regular expression
-  Example: grep -i 'hello world' menu.lua main.lua
+名称
+  grep - 在各个FILE或标准输入中搜索PATTERN。PATTERN默认是Lua正则表达式。
+  例如：grep -i 'hello world' menu.lua main.lua
 
-OPTIONS
-Regexp selection and interpretation:
-  -e, --lua-regexp          PATTERN is a Lua regexp (default)
-  -F, --fixed-strings       PATTERN is a plain string
-      --file=FILE           use newline separated PATTERNs from FILE
-  -w, --word-regexp         force PATTERN to match only whole words
-  -x, --line-regexp         force PATTERN to match only whole lines
-  -i, --ignore-case         ignore case distinctions
+选项
+正则表达式选择与解析：
+  -e, --lua-regexp           PATTERN为Lua正则表达式（默认）
+  -F, --fixed-strings        PATTERN为普通字符串
+      --file=FILE            使用FILE中的PATTERN，各个PATTERN用换行隔开
+  -w, --word-regexp          强制PATTERN仅匹配整个单词
+  -x, --line-regexp          强制PATTERN仅匹配整个行
+  -i, --ignore-case          忽略大小写
 
-Miscellaneous:
-      --label=LABEL         use LABEL instead of (standard input) for stdin prefix
-  -s, --no-messages         suppress error messages
-  -v, --invert-match        select non-matching lines
-      --help                display help message and exit
+杂项：
+      --label=LABEL          使用LABEL代替从标准输入匹配的结果的(standard input)前缀
+  -s, --no-messages          压缩报错信息
+  -v, --invert-match         选中不匹配的行
+      --help                 显示帮助信息并退出
+输出控制：
+      --max-count=NUM        在匹配到NUM个结果后停止
+  -n, --line-number          在输出时添加行号
+  -H, --with-filename        输出各个匹配结果所在的文件名
+  -h, --no-filename          压缩输出中前缀的文件名
+  -o, --only-matching        只显示该行中符合PATTERN的部分
+  -q, --quiet, --silent      压缩所有普通输出
+  -r, --recursive            递归搜索FILE指定目录中的内容
+  -L, --files-without-match  只输出未匹配到结果的FILE名称
+  -l, --files-with-matches   只输出匹配到结果的FILE名称
+  -c, --count                对每个FILE只输出一定数量的匹配行
+      --color, --colour      高亮显示匹配到的字符串
+  -t, --trim                 将空格从结果中剔除
 
-Output control:
-      --max-count=NUM       stop after NUM matches
-  -n, --line-number         print line number with output lines
-  -H, --with-filename       print the file name for each match
-  -h, --no-filename         suppress the file name prefix on output
-  -o, --only-matching       show only the part of a line matching PATTERN
-  -q, --quiet, --silent     suppress all normal output
-  -r, --recursive           search directories in FILEs recursively
-  -L, --files-without-match print only names of FILEs containing no match
-  -l, --files-with-matches  print only names of FILEs containing matches
-  -c, --count               print only a count of matching lines per FILE
-      --color, --colour     user markers to highlight the matching strings
-  -t, --trim                trim whitespace off results
-
-When FILE is -, read stdin. With no FILE, read - or ./ if a command line -r. If fewer than two FILEs are given, assume -h. Exit status is 0 if any line is selected, 1 otherwise. If any error occurs and -q is not given, the exit status is 2.
+当FILE为`-`，读取标准输入。不给定FILE，则读取`-`，或在添加`-r`选项时读取`./`。若给定的FILE少于2个，自动添加`-h`。若匹配到结果则返回值为0，否则返回1.若出现错误且未添加`-q`，返回值为2。

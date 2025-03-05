@@ -3,16 +3,16 @@ local shell = require("shell")
 
 local args = shell.parse(...)
 if #args == 0 then
-  io.write("Usage: ln <target> [<name>]\n")
+  io.write("用法: ln <目标> [<名称>]\n")
   return 1
 end
 
 local target_name = args[1]
 local target = shell.resolve(target_name)
 
--- don't link from target if it doesn't exist, unless it is a broken link
+-- 不要链接到不存在的目标，除非链接损坏
 if not fs.exists(target) and not fs.isLink(target) then
-  io.stderr:write("ln: failed to access '" .. target_name .. "': No such file or directory\n")
+  io.stderr:write("ln: 无法访问'" .. target_name .. "': 不存在该文件或目录\n")
   return 1
 end
 

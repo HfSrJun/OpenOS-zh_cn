@@ -1,32 +1,32 @@
-NAME
-  mount - mount a file system
+名称
+  mount - 挂载文件系统
 
-SYNOPSIS
+用法
   mount
   mount LABEL PATH
   mount ADDRESS PATH
   mount --bind PATH PATH
 
-OPTIONS
-  -r, --readonly  mount filesystem readonly
-      --bind      mount a bind point (folder to folder)
-  -h, --help      print help message
+选项
+  -r, --readonly  将文件系统挂载为只读
+      --bind      挂载一个绑定点（文件夹到文件夹）
+  -h, --help      输出帮助信息
 
-DESCRIPTION
-  All files accessible in OpenOS are arranged in one big tree, starting with the root node, '/'. The files are the leaves of the tree, directories are inner nodes of the tree. Files can be distributed across several devices (file system components, such as hard drives and floppies). The `mount` command is used to attach a file system to this tree. The `umount` command can be used to remove a mounted file system from the tree (note that `rm` works for this, too).
+描述
+  OpenOS中可访问的所有文件都被安排在一个大的树状结构上，以根结点`/`开始。文件是树的叶子结点，目录是树的内部结点。文件可以分布在多个设备（文件系统组件，如硬盘和软盘）上。`mount`命令用于将文件系统附加到这棵树上。`umount`命令可以从树中删除已挂载的文件系统（注意`rm`也可用于此目的）。
 
-EXAMPLES
+样例
   mount
-    Display a list of all currently mounted file systems.
+    显示当前挂载的所有文件系统的列表。
 
   mount test /home
-    Mounts the file system labeled `test` at `/home`.
+    将标签为`test`的文件系统挂载到`/home`。
 
   mount 56f /var
-    Mounts the file system of which the address starts with `56f` at `/var`.
+    将地址开头为`56f`的文件系统挂载到`/var`。
 
   mount --readonly tmpfs /tmp_ro
-    Mounts a readonly access path of tmpfs to /tmp_ro
+    将`tmpfs`的只读访问路径挂载到`/tmp_ro`。
 
   mount --bind /mnt/fa4/home /home
-    Mounts /mnt/fa5/home to /home
+    将`/mnt/fa5/home`挂载到`/home`。

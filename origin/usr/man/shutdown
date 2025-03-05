@@ -1,12 +1,12 @@
-NAME
-  shutdown - shut down the computer
+名称
+  shutdown - 关闭电脑
 
-SYNOPSIS
+用法
   shutdown
 
-DESCRIPTION
-  Immediately shuts down the computer.
+描述
+  立即关闭电脑。
 
-EXAMPLES
+样例
   shutdown
-    Stops the computer.
+    关闭电脑。

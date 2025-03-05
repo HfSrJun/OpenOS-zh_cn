@@ -1,19 +1,19 @@
-NAME
-  set - set a environment variable
+名称
+  set - 设定一个环境变量
 
-SYNOPSIS
+用法
   set [VARIABLE]=[VALUE]
 
-DESCRIPTION
-  set an environment variable. Quote [VALUE] to include spaces or non alphanumerics.
+描述
+  设定一个环境变量。若[VALUE]中包含空格或非字母/数字的字符，需要用引号括起来。
 
-EXAMPLES
+样例
   set
-    Shows all environment variables
+    显示所有环境变量。
   set example="Hello World"; echo $example
-    Prints Hello World without quotes
+    输出不带引号的Hello World。
   set LS_COLORS="{FILE=0xFFFFFF,DIR=0x66CCFF,LINK=0xFFAA00,['*.lua']=0xFFFF00}"
-    Change ls colors, showing lua files in yellow. Note ls color defaults are set in /etc/profile
+    修改`ls`所用的颜色，以黄色显示Lua文件。请注意`ls`所用颜色的默认值由`/etc/profile`设定
 
-SEE ALSO
+另请参见
   unset

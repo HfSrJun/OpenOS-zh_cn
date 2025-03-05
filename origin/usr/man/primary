@@ -1,16 +1,16 @@
-NAME
-  primary - get or set primary components
+名称
+  primary - 获取或设定首选组件
 
-SYNOPSIS
+用法
   primary TYPE
   primary TYPE ADDRESS
 
-DESCRIPTION
-  This program allows reading the address of the current primary component of the specified type. It also allows changing the current primary component for a specified type by providing the (abbreviated) address of the new primary component.
+描述
+  该程序可读取指定类型组件的首选组件的地址。若提供新首选组件的地址（可以为缩写），程序还能修改指定类型组件的首选组件。
 
-EXAMPLES
+样例
   primary gpu
-    Writes the address of the current primary GPU to the standard output.
+    输出当前首选GPU的地址到标准输出。
 
   primary gpu 24a
-    Makes the GPU of which the address starts with `24a` the new primary GPU.
+    令地址以`24a`开头的GPU成为新的首选GPU。

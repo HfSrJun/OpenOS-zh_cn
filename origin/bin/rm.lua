@@ -2,14 +2,14 @@ local fs = require("filesystem")
 local shell = require("shell")
 
 local function usage()
-  print("Usage: rm [options] <filename1> [<filename2> [...]]"..[[
+  print("用法: rm [选项] <文件名1> [<文件名2> [...]]"..[[
 
-  -f          ignore nonexistent files and arguments, never prompt
-  -r          remove directories and their contents recursively
-  -v          explain what is being done
-      --help  display this help and exit
+  -f          忽略不存在的文件与参数，从不提示
+  -r          递归删除目录与其中的内容
+  -v          解释做出的操作
+      --help  显示该帮助信息并退出
 
-For complete documentation and more options, run: man rm]])
+要获取完整文档与更多选项，请运行: man rm]])
 end
 
 local args, options = shell.parse(...)
@@ -81,7 +81,7 @@ local function remove_all(parent)
 
   local all_ok = true
   if bRec and promptLevel == 1 then
-    pout(string.format("rm: descend into directory `%s'? ", parent.rel))
+    pout(string.format("rm: 进入目录`%s`继续操作？ ", parent.rel))
     if not confirm() then
       return false
     end
@@ -101,13 +101,13 @@ remove = function(meta)
   end
 
   if not _exists(meta) then
-    perr(string.format("rm: cannot remove `%s': No such file or directory\n", meta.rel))
+    perr(string.format("rm: 无法删除`%s`: 不存在该文件或目录\n", meta.rel))
     return false
   elseif _dir(meta) and not bRec and not (_empty(meta) and bEmptyDirs) then
     if not bEmptyDirs then
-      perr(string.format("rm: cannot remove `%s': Is a directory\n", meta.rel))
+      perr(string.format("rm: 无法删除`%s`: 为目录\n", meta.rel))
     else
-      perr(string.format("rm: cannot remove `%s': Directory not empty\n", meta.rel))
+      perr(string.format("rm: 无法删除`%s`: 目录非空\n", meta.rel))
     end
     return false
   end
@@ -115,11 +115,11 @@ remove = function(meta)
   local ok = true
   if promptLevel == 1 then
     if _dir(meta) then
-      pout(string.format("rm: remove directory `%s'? ", meta.rel))
+      pout(string.format("rm: 要删除目录`%s`吗？", meta.rel))
     elseif meta.link then
-      pout(string.format("rm: remove symbolic link `%s'? ", meta.rel))
-    else -- file
-      pout(string.format("rm: remove regular file `%s'? ", meta.rel))
+      pout(string.format("rm: 要删除符号链接`%s`吗？", meta.rel))
+    else -- 文件
+      pout(string.format("rm: 要删除普通文件`%s`吗？", meta.rel))
     end
 
     ok = confirm()
@@ -127,13 +127,13 @@ remove = function(meta)
 
   if ok then
     if _readonly(meta) then
-      perr(string.format("rm: cannot remove `%s': Is read only\n", meta.rel))
+      perr(string.format("rm: 无法删除`%s': 为只读\n", meta.rel))
       return false
     elseif not unlink(_path(meta)) then
-      perr(meta.rel .. ": failed to be removed\n")
+      perr(meta.rel .. ": 删除失败\n")
       ok = false
     elseif bVerbose then
-      pout("removed '" .. meta.rel .. "'\n");
+      pout("已删除'" .. meta.rel .. "'\n");
     end
   end
 
@@ -145,7 +145,7 @@ for _,arg in ipairs(args) do
 end
 
 if promptLevel == 3 and #metas > 3 then
-  pout(string.format("rm: remove %i arguments? ", #metas))
+  pout(string.format("rm: 删除%i参数吗？", #metas))
   if not confirm() then
     return
   end

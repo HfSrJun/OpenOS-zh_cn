@@ -6,15 +6,15 @@ local args, options = shell.parse(...)
 
 local function usage()
   print(
-[[Usage: rmdir [OPTION]... DIRECTORY...
-Removes the DIRECTORY(ies), if they are empty.
+[[用法: rmdir [选项]... 目录...
+删除一或多个目录，目录需要为空。
 
   -q, --ignore-fail-on-non-empty
-                  ignore failures due solely to non-empty directories
-  -p, --parents   remove DIRECTORY and its empty ancestors
-                  e.g. 'rmdir -p a/b/c' is similar to 'rmdir a/b/c a/b a'
-  -v, --verbose   output a diagnostic for every directory processed
-      --help      display this help and exit]])
+                  忽略因为目录非空导致的操作失败
+  -p, --parents   删除目录及其各级为空的父目录
+                  如'rmdir -p a/b/c'相当于'rmdir a/b/c a/b a'
+  -v, --verbose   每次处理目录时都输出状态信息
+      --help      显示该提示文本并退出]])
 end
 
 if options.help then
@@ -23,7 +23,7 @@ if options.help then
 end
 
 if #args == 0 then
-  io.stderr:write("rmdir: missing operand\n")
+  io.stderr:write("rmdir: 缺少操作对象\n")
   return 1
 end
 
@@ -38,24 +38,24 @@ local function ec_bump()
 end
 
 local function remove(path, ...)
-  -- check to end recursion
+  -- 结束递归的检查
   if path == nil then
     return true
   end
 
   if options.v then
-    print(string.format('rmdir: removing directory, %s', path))
+    print(string.format('rmdir: 正在删除目录%s', path))
   end
 
   local rpath = shell.resolve(path)
   if path == '.' then
-    io.stderr:write('rmdir: failed to remove directory \'.\': Invalid argument\n')
+    io.stderr:write('rmdir: 删除目录\'.\'失败: 无效参数\n')
     return ec_bump()
   elseif not fs.exists(rpath) then
-    io.stderr:write("rmdir: cannot remove " .. path .. ": path does not exist\n")
+    io.stderr:write("rmdir: 无法删除" .. path .. ": 路径不存在\n")
     return ec_bump()
   elseif fs.isLink(rpath) or not fs.isDirectory(rpath) then
-    io.stderr:write("rmdir: cannot remove " .. path .. ": not a directory\n")
+    io.stderr:write("rmdir: 无法删除" .. path .. ": 不是目录\n")
     return ec_bump()
   else
     local list, reason = fs.list(rpath)
@@ -66,24 +66,24 @@ local function remove(path, ...)
     else
       if list() then
         if not options.q then
-          io.stderr:write("rmdir: failed to remove " .. path .. ": Directory not empty\n")
+          io.stderr:write("rmdir: 无法删除" .. path .. ": 目录非空\n")
         end
         return ec_bump()
       else
-        -- path exists and is empty?
+        -- 路径存在且为空？
         local ok, reason = fs.remove(rpath)
         if not ok then
           io.stderr:write(tostring(reason)..'\n')
           return ec_bump(), reason
         end
-        return remove(...) -- the final return of all else
+        return remove(...) -- 最后的return会返回其余所有数据
       end
     end
   end
 end
 
 for _,path in ipairs(args) do
-  -- clean up the input
+  -- 清理输入
   path = path:gsub('/+', '/')
 
   local segments = {}

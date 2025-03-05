@@ -11,30 +11,30 @@ local function die(...)
   os.exit(1)
 end
 
-do -- handle cli
+do -- 处理cli
   if opts.help then
-    print([[Usage: tree [OPTION]... [FILE]...
-  -a, --all             do not ignore entries starting with .
-      --full-time       with -l, print time in full iso format
-  -h, --human-readable  with -l, print human readable sizes
-      --si              likewise, but use powers of 1000 not 1024
-      --level=LEVEL     descend only LEVEL directories deep
-      --color=WHEN      WHEN can be
-                        auto - colorize output only if writing to a tty,
-                        always - always colorize output,
-                        never - never colorize output; (default: auto)
-  -l                    use a long listing format
-  -f                    print the full path prefix for each file
-  -i                    do not print indentation lines
-  -p                    append "/" indicator to directories
-  -Q, --quote           quote filenames with double quotes
-  -r, --reverse         reverse order while sorting
-  -S                    sort by file size
-  -t                    sort by modification type, newest first
-  -X                    sort alphabetically by entry extension
-  -C                    do not count files and directories
-  -R                    count root directories like other files
-      --help            print this help and exit]])
+    print([[用法: tree [选项]... [文件]...
+  -a, --all             不要忽略以`.`开头的条目
+      --full-time       搭配`-l`时，以完整iso格式输出时间
+  -h, --human-readable  搭配`-l`时，以易于阅读的格式输出文件大小
+      --si              类似`-h`，但使用1000而不是1024进制
+      --level=LEVEL     只会深入最多`LEVEL`层目录
+      --color=WHEN      `WHEN`可以为
+                        auto - 只有在输出到tty的时候才上色
+                        always - 总是给输出上色
+                        never - 从不给输出上色（默认为：auto）
+  -l                    输出详细信息
+  -f                    每个文件都输出完整的路径前缀
+  -i                    不要输出缩进线
+  -p                    在目录的后面追加"/"标记
+  -Q, --quote           用双引号将文件名括起来
+  -r, --reverse         反转排列顺序
+  -S                    按照文件大小排序
+  -t                    按照修改时间排序，新的在前
+  -X                    按照条目扩展名字母顺序排序
+  -C                    不要统计文件与目录数量
+  -R                    使用与其他文件相同的方式统计根目录
+      --help            输出该提示信息并退出]])
     return 0
   end
 
@@ -44,7 +44,7 @@ do -- handle cli
 
   opts.level = tonumber(opts.level) or math.huge
   if opts.level < 1 then
-    die("Invalid level, must be greater than 0")
+    die("层级数无效，必须大于0")
   end
 
   opts.color = opts.color or "auto"
@@ -53,7 +53,7 @@ do -- handle cli
   end
 
   if opts.color ~= "always" and opts.color ~= "never" then
-    die("Invalid value for --color=WHEN option; WHEN should be auto, always or never")
+    die("给定--color=WHEN选项的值无效。`WHEN`需要为auto、always或never")
   end
 end
 
@@ -220,8 +220,8 @@ local function pad(txt)  -- from /lib/core/full_ls.lua
 end
 
 local function formatTime(epochms)  -- from /lib/core/full_ls.lua
-  local month_names = {"January","February","March","April","May","June",
-     "July","August","September","October","November","December"}
+  local month_names = {"一月","二月","三月","四月","五月","六月",
+     "七月","八月","九月","十月","十一月","十二月"}
 
   if epochms == 0 then return "" end
 
@@ -290,11 +290,14 @@ local function writeEntry(entry, levelStack)
   io.write("\n")
 end
 
+-- 删除了英文复数形式的逻辑
 local function writeCount(dirs, files)
   io.write("\n")
-  io.write(dirs, " director", dirs == 1 and "y" or "ies")
+  --io.write(dirs, " director", dirs == 1 and "y" or "ies")
+  io.write(dirs, "个目录")
   io.write(", ")
-  io.write(files, " file", files == 1 and "" or "s")
+  --io.write(files, " file", files == 1 and "" or "s")
+  io.write(files, "个文件")
   io.write("\n")
 end
 
@@ -305,9 +308,9 @@ for _, arg in ipairs(args) do
   local path = shell.resolve(arg)
   local real, reason = fs.realPath(path)
   if not real then
-    die("cannot access ", path, ": ", reason or "unknown error")
+    die("无法访问", path, ": ", reason or "未知错误")
   elseif not fs.exists(path) then
-    die("cannot access ", path, ":", "No such file or directory")
+    die("无法访问", path, ":", "不存在该文件或目录")
   else
     table.insert(roots, real)
   end

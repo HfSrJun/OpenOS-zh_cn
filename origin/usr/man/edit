@@ -1,19 +1,19 @@
-NAME
-  edit - primitive file editor
+名称
+  edit - 简易文件编辑器
 
-SYNOPSIS
+用法
   edit FILE
 
-DESCRIPTION
-  A very simple text file editor. To create new files with `edit`, open a file in a writable file system that doesn't exist and save.
+描述
+  非常简单的文本文件编辑器。要使用`edit`创建新文件，只需在可写入的文件系统中打开一个不存在的文件，并保存。
 
-OPTIONS
+选项
   -r
-    opens file as read only
+    以只读模式打开文件
 
-EXAMPLES
+样例
   edit /tmp/test.txt
-    Opens the file `/tmp/test.txt` for editing. If it doesn't exists, it will be created upon saving.
+    打开文件`/tmp/test.txt`进行编辑。若该文件不存在，则保存时会进行创建。
 
   edit /bin/ls.lua
-    Opens the file `/bin/ls.lua`, which will be opened in read-only mode, assuming `/bin` is the default as provided by the read-only-memory.
+    打开文件`/bin/ls.lua`，且会在只读模式下打开。假设这里的`/bin`保持默认，是由内存提供的。

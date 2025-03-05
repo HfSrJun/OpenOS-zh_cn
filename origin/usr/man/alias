@@ -1,24 +1,24 @@
-NAME
-  alias - displays and manipulates aliases for programs
+名称
+  alias - 显示与操作程序的别名
 
-SYNOPSIS
+用法
   alias
   alias name
   alias name=value
 
-DESCRIPTION
-  `alias` allows listing and editing aliases for programs. An alias is an alternative name that can be used to start a program. A program can have multiple aliases. Aliases can also contain parameters and options to pass to the actual program. An alias can also, in turn, have aliases.
+描述
+  `alias`可列出以及修改程序的别名。“别名”指可以启动程序的其他名称。一个程序可以有多个别名，别名中也可以包含传递给实际程序的参数或者选项，别名也可以有别名。
 
-EXAMPLES
+样例
   alias
-    Displays the list of all current aliases.
+    显示当前存在的所有别名。
 
   alias name
-    Displays the value the specified alias, i.e. what the specified alias stands for.
+    显示给定别名的值，即给定的别名代表什么。
 
   alias name=value
   alias name='value with arguments'
-    Sets the value of the alias with the specified name. Note that white space separates arguments to a command, thus to have an alias whose value has whitespace, quote the value
+    设置给定别名的值。请注意空格会切分传递给指令的参数，因此如果别名的值里面含有空格，那么需要将值用引号括起来。
 
   alias name1 name2 name3=value
-    You can also return the value, or set the value, of an arbitrary number of aliases.
+    你可以同时操作多个别名，一起输出或修改它们的值。

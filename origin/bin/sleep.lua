@@ -2,17 +2,15 @@ local shell = require("shell")
 local args, options = shell.parse(...)
 
 if options.help then
-  print([[Usage: sleep NUMBER[SUFFIX]...
-Pause for NUMBER seconds.  SUFFIX may be 's' for seconds (the default),
-'m' for minutes, 'h' for hours or 'd' for days.  Unlike most implementations
-that require NUMBER be an integer, here NUMBER may be an arbitrary floating
-point number.  Given two or more arguments, pause for the amount of time
-specified by the sum of their values.]])
+  print([[用法: sleep 数字[后缀]...
+暂停运行`数字`秒。`后缀`可以是's'代表秒（默认）、'm'代表分钟、'h'代表小时、'd'代表
+天。不像大多数实现中`数字`必须是整数，这里的数字可以是任意浮点数。给定两个或更多的参
+数，将会暂停所有参数的总和。]])
 end
 
 local function help(bad_arg)
-  print("sleep: invalid option -- '"..tostring(bad_arg).."'")
-  print("Try 'sleep --help' for more information.")
+  print("sleep: 无效选项 -- '"..tostring(bad_arg).."'")
+  print("执行`sleep --help`以获取更多信息。")
 end
 
 local function time_type_multiplier(time_type)
@@ -26,8 +24,8 @@ local function time_type_multiplier(time_type)
     return 60 * 60 * 24
   end
 
-  -- weird error, my bad
-  assert(false,'bug parsing parameter:'..tostring(time_type))
+  -- 神秘问题，我的错
+  assert(false,'解析参数失败:'..tostring(time_type))
 end
 
 options.help = nil

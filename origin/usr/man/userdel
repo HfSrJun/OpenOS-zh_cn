@@ -1,12 +1,12 @@
-NAME
-  userdel - removes a player from the list of authorized users
+名称
+  userdel - 从授权用户列表中删除一名玩家
 
-SYNOPSIS
+用法
   userdel NAME
 
-DESCRIPTION
-  Removes a player from the list of users authorized to use this computer. See `useradd`.
+描述
+  将一名玩家从可使用该电脑的用户列表中删除。参见`useradd`。
 
-EXAMPLES
+样例
   userdel Steve
-    Removes the player named `Steve` from the userlist.
+    从用户列表中删除名为`Steve`的玩家。

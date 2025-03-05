@@ -3,7 +3,7 @@ local shell = require("shell")
 
 local args = shell.parse(...)
 if #args ~= 1 then
-  io.write("Usage: useradd <name>\n")
+  io.write("用法: useradd <用户名>\n")
   return 1
 end
 

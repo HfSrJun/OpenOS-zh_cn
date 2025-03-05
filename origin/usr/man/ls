@@ -1,80 +1,80 @@
-NAME
-  ls - list directory contents
+名称
+  ls - 列出目录中的内容
 
-SYNOPSIS
+用法
   ls [OPTION]... [FILE]...
 
-DESCRIPTION
-  List information about the specified files, or the current working directory by default.
+描述
+  列出指定文件，或当前工作目录（默认）的信息。
 
-OPTIONS
+选项
   -a, --all
-    do not ignore entries starting with .
+    不要忽略以`.`开头的条目
 
   --full-time
-    with -l, print time in full iso format
+    搭配`-l`使用，以完整的iso格式显示时间
 
   -h, --human-readable
-    with -l and/or -s, print human readable sizes
+    搭配`-l`与/或`-s`使用，显示方便阅读的文件大小
 
   --si
-    likewise, but use powers of 1000 not 1024
+    类似`-h`，但使用1000进制而不是1024进制
 
   -l
-    use a long listing format
+    显示完整信息
 
   -r, --reverse
-    reverse order while sorting
+    反转排列顺序
 
   -R, --recursive
-    list subdirectories recursively
+    递归列出子目录
 
   -S
-    sort by file size
+    按照文件大小排序
 
   -t
-    sort by modification time, newest first
+    按照修改时间排序，新的优先
 
   -X
-    sort alphabetically by entry extension
+    按条目扩展名的字母顺序排列
 
   -1
-    list one file per line
+    每行只列出一个文件
 
   --no-color
-    Do not colorize the output (default colorized)
+    不要为输出着色（默认会着色）
 
   --help
-    display this help and exit
+    显示帮助信息并退出
 
   -p
-    append / indicator to directories
+    在目录的后面添加`/`标记
 
   -M
-    display Microsoft-style file and directory count after listing
+    在列表末尾显示微软风格的文件与目录统计
 
-ENVIRONMENT VARIABLES
+环境变量
 
   LS_COLORS
-    A serialized table listing colors to use for listing filesystem elements.
+    一张序列化表，内含列出文件系统的元素时所用的颜色
 
     FILE
-      Coloring to use when listing a regular file
+      列出普通文件时所用的颜色
 
     DIR
-      Coloring to use when listing a directory
+      列出目录时所用的颜色
 
     LINK
-      Coloring to use when listing a symbolic link
+      列出符号链接时所用的颜色
 
     *.<extension>
-      Coloring to use for regular files with an extension <extension>
+      列出后缀为<extension>的普通文件时所用的颜色
 
-    The default LS_COLORS string is "{FILE=0xFFFFFF,DIR=0x66CCFF,LINK=0xFFAA00,["*.lua"]=0x00FF00}"
+    默认的LS_COLORS字符串为"{FILE=0xFFFFFF,DIR=0x66CCFF,LINK=0xFFAA00,["*.lua"]=0x00FF00}"
 
-EXAMPLES
+样例
   ls
-    Displays the contents of the current directory.
+    显示当前目录的内容。
 
   ls /bin /mnt
-    Displays the contents of the `/bin`/ and `/mnt` directories, one after the other.
+    显示`/bin`与`/mnt`目录的内容，一个接一个。

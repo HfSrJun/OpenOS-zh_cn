@@ -1,13 +1,13 @@
-NAME
-  dmesg - display messages(events)
+名称
+  dmesg - 显示消息（事件）
 
-SYNOPIS
+用法
   dmesg [EVENT]...
 
-EXAMPLES
+样例
   dmesg
-    Shows all events.
+    显示所有事件。
 
   dmesg touch
-    Shows only "touch" events.
+    只显示"touch"事件。
 

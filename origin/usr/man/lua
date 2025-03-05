@@ -1,12 +1,12 @@
-NAME
-  lua - a simple Lua interpreter
+名称
+  lua - 简易Lua解释器
 
-SYNOPSIS
+用法
   lua
 
-DESCRIPTION
-  Launches a command line that can be used to evaluate Lua statements and expressions. This can be very useful for testing out commands. Note that the interpreter will automatically try to resolve undefined globals using `require`, i.e. it will try to load a package with the specified name.
+描述
+  启动一个命令行，检验Lua语句和表达式，可用于测试指令。请注意，解释器会自动尝试使用`require`来解析未定义的全局变量，即尝试加载对应名称的软件包。
 
-EXAMPLES
+样例
   lua
-    Launches the Lua interpreter.
+    启动Lua解释器。

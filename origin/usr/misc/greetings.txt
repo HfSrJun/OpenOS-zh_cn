@@ -1,28 +1,28 @@
-Tier 2 and 3 screens can act as touch screens - don't attach a keyboard or sneak-activate them.
-You can change the text size on screens by changing their resolution - run `resolution 40 16` in the shell.
-Firing arrows on touch capable screens can trigger touch events.
-Item colors indicate their tier - white is tier one, yellow is tier two and cyan is tier three.
-Use an Analyzer to get more information on blocks - for example, to find out why a computer crashed.
-Keyboards have to be attached to or placed next to a screen to work.
-You can install OpenOS on a writable medium by running the `install` program.
-Internet Cards can be used to make HTTP requests and open raw TCP connections.
-If you crafted something by mistake or don't need it any longer, throw it into a disassembler.
-Have a look at the code of the built-in programs for examples on how to use the APIs.
-Most programs can be interrupted by pressing Ctrl+Alt+C.
-Paste the contents of the clipboard using the middle mouse button or a configurable key (default: insert).
-Computers will consume less power while idling - i.e. when os.sleep(n > 0.05) is called.
-Screens will consume more power the more lit characters they display.
-Most blocks act as 'cables' - use relays and power distributors to create separate networks.
-Welcome to the dark side - here, have some cookies.
-Screens can display Unicode - paste the special chars or use unicode.char.
-Run `help` or `man programname` for ingame help on programs shipped with OpenOS - start with `man man`.
-For more help, there's a wiki at https://ocdoc.cil.li/ - or find the IRC loot disk and join #oc.
-Computers have a very basic, built-in speaker - control it using computer.beep().
-Many component methods have a short documentation - use `=component.componentName.methodName` in the Lua interpreter to see it.
-You can get a list of all attached components using the `components` program.
-If you encounter out of memory errors, throw more RAM at your computer.
-Have you tried turning it off and on again?
-To disable this greeting, install OpenOS to a writeable medium and remove the `/etc/motd` line from `/etc/profile.lua`.
-Did you know OpenComputers has a forum? No? Well, it's at https://oc.cil.li/.
-Please report bugs on the Github issue tracker, thank you!
-Beware of cycles when building networks, or you may get duplicate messages!
+2和3级的显示屏可作为触摸屏——不连接键盘或潜行交互即可。
+通过修改分辨率，你可以改变显示屏上的文字大小——在shell中运行`resolution 40 16`。
+向支持触摸的屏幕射箭可以触发touch事件。
+物品的颜色代表了它们的等级——1级为淡灰色，2级为黄色，3级为青色。
+可使用分析器获取方块的更多信息——例如找出电脑崩溃的原因。
+键盘要附着在显示屏上或放在其旁边才能工作。
+通过运行`install`，你可以将OpenOS安装到可写入的存储介质中。
+因特网卡可用于创建HTTP请求，以及打开原始TCP连接。
+如果你错误合成了某些东西，或不再需要某些东西，只需将其放入分解机。
+查看内置程序的代码有助于了解API的用法。
+按下Ctrl+Alt+C可以中断大多数程序。
+可以按鼠标中键或用户设置的按键（默认为insert）将剪贴板的内容黏贴到电脑里。
+电脑在闲置，即调用os.sleep(n>0.05)时耗能更少C。
+显示屏上亮起的字符越多，耗电量就越大。
+大多数方块拥有“线缆”的功能——请使用中继器和能量分配器来创建切分开的网络。
+欢迎来到暗面——我们有曲奇饼。
+显示屏可以显示Unicode——请黏贴特殊符号或使用`unicode.char`。
+运行`help`或者`man 程序名`即可获取OpenOS附带程序的游戏内帮助信息——先试试`man man`。
+要获取更多帮助，可以访问wiki，网址为https://ocdoc.cil.li/——或者找到IRC战利品软盘然后加入#oc。
+电脑有十分基础的内置喇叭——使用computer.beep()即可控制。
+很多组件方法都有简短的文档——在Lua解释器中使用`=component.组件名.方法名`即可查看。
+使用`components`程序可以列出所连接的所有组件。
+如果你遇到了内存不足报错，只需向电脑安装更多内存条。
+有没有试着把它关掉再打开？
+要禁用欢迎信息，只需将OpenOS安装到可写入的存储介质中，然后从`/etc/profile.lua`中删除`/etc/motd`所在的行。
+你知道开放式电脑模组有论坛吗？不知道？它在https://oc.cil.li/。
+请在Github的issue tracker中上报bug，谢谢！
+在创建网络时要小心环路，不然报文可能出现重复！

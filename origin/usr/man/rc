@@ -1,35 +1,35 @@
-NAME
-  rc - Manage services
+名称
+  rc - 管理服务
 
-SYNOPSIS
+用法
   rc SERVICE COMMAND [ARGS...]
 
-DESCRIPTION
-  Controls services in /etc/rc.d/
-  Common commands are start/stop/restart, there are also special commands enable/disable. A command is global function in executable file that is stored in /etc/rc.d/ directory. Services can define their own commands.
+描述
+  控制`/etc/rc.d/`中的服务
+  通用命令有：`start`、`stop`、`restart`，还有特殊命令`enable`、`disable`。命令是存储在`/etc/rc.d/`目录下的可执行文件内定义的全局函数。服务可以定义自己的命令。
 
-COMMANDS
+命令
   start
-    This command starts specified service, executed automatically for all enabled services when system boots.
+    该命令可以开始运行特定服务，系统启动后会自动开始所有启用的服务。
 
   stop
-    This command stops specified service.
+    该命令可以停止运行特定服务。
 
   restart
-    This command restarts specified service. This command doesn't have to be implemented by services when start and stop commands are present.
+    该命令可以重启特定服务。若`start`和`stop`命令均存在，则服务无需实现这一命令。
 
   enable
-    This command enables specified service. Executing this command won't start the service. It's implemented by the rc library, but can be overridden by service.
+    该命令可以启用特定服务。执行这一命令并不会开始运行服务。该命令由rc库实现，但可由服务覆盖。
 
   disable
-    This command disables specified service. Executing this command won't stop the service. It's implemented by the rc library, but can be overridden by service.
+    该命令可以禁用特定服务。执行这一命令并不会停止运行服务。该命令由rc库实现，但可由服务覆盖。
 
-EXAMPLES
+样例
   rc example
-    Lists commands of example service.
+    列出`example`服务的命令
 
   rc example start
-    Starts example service.
+    开始运行`example`服务
 
   rc example enable
-    Makes example start on system boot.
+    让`example`服务在系统启动后自动开始运行

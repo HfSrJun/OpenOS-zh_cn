@@ -5,8 +5,8 @@ local term = require("term") -- using term for negative scroll feature
 
 local args, ops = shell.parse(...)
 if #args > 1 then
-  io.write("Usage: ", os.getenv("_"):match("/([^/]+)%.lua$"), " <filename>\n")
-  io.write("- or no args reads stdin\n")
+  io.write("用法: ", os.getenv("_"):match("/([^/]+)%.lua$"), " <文件名>\n")
+  io.write("传递`-`或不传递参数则读取标准输入\n")
   return 1
 end
 
@@ -27,7 +27,7 @@ local function split(full_line)
   local parts = {}
   while true do
     local sub = full_line:sub(index, index + width*3)
-    -- checking #sub < width first is faster, save a unicode call
+    -- 先检查#sub < width更快，能节约一次unicode调用
     if #sub < width or unicode.wlen(sub) <= width then
       parts[#parts + 1] = sub
       break
@@ -51,7 +51,7 @@ local function scan(num)
     else
       local full_line = preader:read()
       if not full_line then preader:close() break end
-      -- with buffering, we can buffer ahead too, and read more smoothly
+      -- 有了缓存，我们还能提前进行缓存，让阅读更加顺畅
       local buffering = false
       for _,line in ipairs(split(full_line)) do
         if not buffering then
@@ -84,7 +84,7 @@ local function status()
     if ops.noback then
       os.exit()
     end
-    io.write("(END)")
+    io.write("(结束)")
   end
   io.write(":")
 end

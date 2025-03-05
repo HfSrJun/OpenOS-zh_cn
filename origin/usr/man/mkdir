@@ -1,15 +1,15 @@
-NAME
-  mkdir - make directories
+名称
+  mkdir - 创建目录
 
-SYNOPSIS
+用法
   mkdir DIRECTORY...
 
-DESCRIPTION
-  Create the specified directories, if they don't already exist.
+描述
+  若指定目录不存在，则进行创建。
 
-EXAMPLES
+样例
   mkdir a
-    Create directory `a` in the current directory.
+    在当前目录下创建目录`a`。
 
   mkdir /a/b c
-    Create directory `/a` if it doesn't already exists, then create directory `/a/b` and create directory `c` in the current directory.
+    若不存在，创建目录`/a`，然后创建目录`/a/b`，并在当前目录下创建目录`c`。

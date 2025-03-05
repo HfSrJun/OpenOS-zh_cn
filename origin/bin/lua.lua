@@ -9,10 +9,10 @@ local filename = args[1]
 local buffer, script, reason
 buffer = io.lines(filename, "*a")()
 if buffer then
-  buffer = buffer:gsub("^#![^\n]+", "") -- remove shebang if any
+  buffer = buffer:gsub("^#![^\n]+", "") -- 如果有shebang则移除
   script, reason = load(buffer, "="..filename)
 else
-  reason = string.format("could not open %s for reading", filename)
+  reason = string.format("无法打开%s进行读取", filename)
 end
 
 if not script then

@@ -1,42 +1,42 @@
-NAME
-  cd - change the current working directory
+名称
+  cd - 切换当前工作目录
 
-SYNOPSIS
+用法
   cd [directory]
   cd -
 
-DESCRIPTION
-  `cd` allows changing the current working directory, i.e the directory based on which relative paths are resolved.
+描述
+  `cd`可用于切换当前工作目录，即用于解析相对路径的目录。
 
-  If no operand is given then HOME environment variable is used.
+  若不给定参数，默认使用环境变量HOME。
 
-  If the operand is - (just a single dash) then OLDPWD environment variable is used.
+  如果参数是“-”（一条横线），那么使用环境变量OLDPWD。
 
-  Relative path components ./ and ../ may be used to denote the working directory and the parent directory, respectively. An operand starting with ./ is equivalent to PWD environment variable. See examples for illustrations.
+  可以用相对路径的组成部分`./`和`../`分别代表工作目录与父目录。以`./`开头的参数等价于环境变量PWD。参见样例部分的注释。
 
-  Lastly, cd will attempt to change the current directory to the path defined by the operand, reporting errors if any.
+  `cd`会尝试将当前目录切换到由参数定义的目录，若出现错误将会显示。
 
-  If cd is successful, OLDPWD environment variable will also be set to the previous value of PWD (that is the current working directory immediately prior to the call to cd).
+  若`cd`执行成功，环境变量OLDPWD也会被设定为PWD先前的值。（即调用`cd`前一刻的工作目录） 
 
-ENVIRONMENT VARIABLES
+环境变量
   PWD
-    Parent Working Directory, the current working directory
+    即Parent Working Directory，代表当前工作目录。
 
   OLDPWD
-    Old PWD, set each time the PWD is changed by calling the cd utility
+    旧的PWD，每次通过`cd`工具改变PWD时都会重设。
 
   HOME
-    Represents the path of the user's home directory
+    代表用户的home目录。
 
-EXAMPLES
+样例
   cd a
-    Changes to directory `a` in the current working directory
+    切换到当前目录中的目录`a`。
 
   cd /bin
-    Changes to directory `/bin`, using the specified absolute path
+    切换到目录`/bin`，该指令给定了一个绝对目录。
 
   cd ../
-    Changes to the parent directory of the current working directory
+    切换到当前目录的父目录。
 
   cd -
-    Changes to the previos directory, defined by OLDPWD, and set each time cd changes PWD
+    切换到OLDPWD定义的上一目录，每次`cd`改动PWD的时候都会重设。

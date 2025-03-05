@@ -1,12 +1,12 @@
-NAME
-  reboot - restarts the computer
+名称
+  reboot - 重启电脑
 
-SYNOPSIS
+用法
   reboot
 
-DESCRIPTION
-  `reboot` will immediately issue a reboot of the computer, shutting it down then starting it back up.
+描述
+  `reboot`会立即进行电脑重启，即将电脑关机然后重新开启。
 
-EXAMPLES
+样例
   reboot
-    Reboots the computer.
+    重启电脑。

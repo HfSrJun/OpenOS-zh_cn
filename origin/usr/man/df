@@ -1,15 +1,15 @@
-NAME
-  df - report file system disk space usage
+名称
+  df - 查看文件系统的磁盘空间使用率
 
-SYNOPSIS
+用法
   df [FILE]...
 
-DESCRIPTION
-  `df` outputs disk space information for the file systems containing the specified files. If no file names are given it returns the information for all currently mounted file systems.
+描述
+  `df`会输出给定文件所在文件系统的磁盘空间信息。若不给定文件名则会输出当前挂载的所有文件系统的信息。
 
-EXAMPLES
+样例
   df
-    Show global file system disk usage.
+    显示所有文件系统的磁盘使用情况。
 
   df /home /var
-    Show disk usage of file systems mounted at `/home` and `/var`.
+    显示挂载到`/home`与`/var`的文件系统的磁盘使用情况。

@@ -5,7 +5,7 @@ local hostname = args[1]
 if hostname then
   local file, reason = io.open("/etc/hostname", "w")
   if not file then
-    io.stderr:write("failed to open for writing: ", reason, "\n")
+    io.stderr:write("无法打开文件写入: ", reason, "\n")
     return 1
   end
   file:write(hostname)
@@ -25,6 +25,6 @@ if ops.update then
 elseif hostname then
   print(hostname)
 else
-  io.stderr:write("Hostname not set\n")
+  io.stderr:write("未设定主机名\n")
   return 1
 end

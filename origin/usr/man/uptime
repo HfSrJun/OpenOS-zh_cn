@@ -1,12 +1,12 @@
-NAME
-  uptime - how long has the computer been running
+名称
+  uptime - 电脑已经运行多长时间
 
-SYNOPSIS
+用法
   uptime
 
-DESCRIPTION
-  Writes the time in real time hours, minutes and seconds the computer has been running to the standard output.
+描述
+  输出电脑已经运行的时间到标准输出，时间按照现实中的时分秒计算。
 
-EXAMPLES
+样例
   uptime
-    Displays the time the computer has been running.
+    显示电脑已经运行的时间。

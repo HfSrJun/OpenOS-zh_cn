@@ -1,12 +1,12 @@
-NAME
-  date - get the current time and date
+名称
+  date - 获取当前时间与日期
 
-SYNOPSIS
+用法
   date
 
-DESCRIPTION
-  Writes the current time and date to the standard output. Note that the time is measured in in-game time, with the date starting on the 1st of January 1970 as the time the world was created.
+描述
+  将现在的时间与日期写入到标准输出中。请注意，时间按照游戏内时间计算，世界创建后日期从1970年1月1日开始计算。
 
-EXAMPLES
+样例
   date
-    Displays the current date and time.
+    显示当前的时间与日期。

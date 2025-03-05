@@ -3,12 +3,11 @@ local fs = require("filesystem")
 local text = require("text")
 
 local USAGE =
-[===[Usage: find [path] [--type=[dfs]] [--[i]name=EXPR]
-  --path  if not specified, path is assumed to be current working directory
-  --type  returns results of a given type, d:directory, f:file, and s:symlinks
-  --name  specify the file name pattern. Use quote to include *. iname is
-          case insensitive
-  --help  display this help and exit]===]
+[===[用法: find [路径] [--type=[dfs]] [--[i]name=表达式]
+  --path  若不指定，假设路径为当前工作目录
+  --type  返回给定类型的结果，d：目录，f：文件，s：符号链接
+  --name  指定文件名的模式。需要用引号将"*."括起来。iname区分大小写
+  --help  显示该帮助信息并退出]===]
 
 local args, options = shell.parse(...)
 
@@ -17,7 +16,7 @@ if (not args or not options) or options.help then
   if not options.help then
     return 1
   else
-    return -- nil return, meaning no error
+    return -- 返回nil代表无报错
   end
 end
 
@@ -36,7 +35,7 @@ local fileNamePattern = ""
 local bCaseSensitive = true
 
 if options.iname and options.name then
-  io.stderr:write("find cannot define both iname and name\n")
+  io.stderr:write("find程序不能同时定义iname和name\n")
   return 1
 end
 
@@ -52,7 +51,7 @@ if options.type then
   elseif options.type == "s" then
     bSyms = true
   else
-    io.stderr:write(string.format("find: Unknown argument to type: %s\n", options.type))
+    io.stderr:write(string.format("find: 未知的`type`参数: %s\n", options.type))
     io.stderr:write(USAGE..'\n')
     return 1
   end
@@ -63,7 +62,7 @@ if options.iname or options.name then
   fileNamePattern = options.iname or options.name
 
   if type(fileNamePattern) ~= "string" then
-    io.stderr:write('find: missing argument to `name\'\n')
+    io.stderr:write('find: `name`缺少参数\n')
     return 1
   end
 
@@ -71,7 +70,7 @@ if options.iname or options.name then
     fileNamePattern = fileNamePattern:lower()
   end
 
-  -- prefix any * with . for gnu find glob matching
+  -- 将*的前面加上. 让GNU可以全局查找
   fileNamePattern = text.escapeMagic(fileNamePattern)
   fileNamePattern = fileNamePattern:gsub("%%%*", ".*")
 end

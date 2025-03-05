@@ -4,7 +4,7 @@ local args, options = shell.parse(...)
 local ec, error_prefix = 0, "alias:"
 
 if options.help then
-  print(string.format("Usage: alias: [name[=value] ... ]"))
+  print(string.format("用法: alias: [name[=value] ... ]"))
   return
 end
 
@@ -14,7 +14,7 @@ end
 
 local function setAlias(k, v)
   if not validAliasName(k) then
-    io.stderr:write(string.format("%s `%s': invalid alias name\n", error_prefix, k))
+    io.stderr:write(string.format("%s `%s'：别名无效\n", error_prefix, k))
   else
     shell.setAlias(k, v)
   end
@@ -23,7 +23,7 @@ end
 local function printAlias(k)
   local v = shell.getAlias(k)
   if not v then
-    io.stderr:write(string.format("%s %s: not found\n", error_prefix, k))
+    io.stderr:write(string.format("%s 未找到%s\n", error_prefix, k))
     ec = 1
   else
     io.write(string.format("alias %s='%s'\n", k, v))
@@ -47,8 +47,8 @@ local function handlePair(k, v)
   end
 end
 
-if not next(args) then -- no args
-  -- print all aliases
+if not next(args) then -- 无参数
+  -- 输出所有别名
   for k,v in shell.aliases() do
     print(string.format("alias %s='%s'", k, v))
   end

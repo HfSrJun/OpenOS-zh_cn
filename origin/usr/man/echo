@@ -1,19 +1,19 @@
-NAME
-  echo - display a line of text
+名称
+  echo - 显示一行文本
 
-SYNOPSIS
+用法
   echo [STRING]...
 
-DESCRIPTION
-  `echo` writes the provided string(s) to the standard output.
+描述
+  `echo`将给定的一或多个字符串写入到标准输出中。
 
-  -n      do not output the trialing newline
+  -n      不自动输出换行符
 
-  --help  display this help and exit
+  --help  输出这段帮助文本并退出。
 
-EXAMPLES
+样例
   echo test
-    Print `test` to the standard output (which is usually the terminal).
+    在标准输出（通常为终端）上显示`test`。
 
   echo "a   b"
-    Writes the string `a   b`.
+    显示字符串`a   b`。

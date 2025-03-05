@@ -1,109 +1,109 @@
-NAME
-  install - installs files from a source filesystem to a target filesystem
+名称
+  install - 将源文件系统中的文件安装到目标文件系统
 
-SYNOPSIS
+用法
   install [name] [OPTIONS]...
 
-DESCRIPTION
-  install builds a list of candidate source and target mounted filesystems. If there are multiple candidates, the user is prompted for selections. By default, install copies all files from the source filesystem's root to the target filesystem's root path. The source filesystem can define label, boot, and reboot behavior via .prop and a fully custom install experience via .install which supercedes install running cp from source to target filesystems. Developers creating their own .install files for devices should respect environment variables set by install as per options it is given, such as the root path. This manual page details those environment variables.
+描述
+  `install`会建立一个列表，存储备选的源和目标文件系统。如果有多个候选，系统会提示用户进行选择。默认情况下，`install`会将源文件系统根目录下的所有文件复制到目标文件系统的根目录。源文件系统可通过`.prop`文件定义标签、启动和重启行为。还可通过`.install`文件定义完全自定义的安装体验，代替从源到目标文件系统的`cp`操作。创建自定义`.install`文件的开发人员应尊重`install`按照选项设置的环境变量，如根路径。本手册将详细介绍这些环境变量。
 
-OPTIONS
+选项
   --from=ADDR
-    Specifies the source filesystem or its root path. ADDR can be the device uuid or a directory path. If this is a directory path, it represents a root path to install from. This option can also be used to specify source paths that would otherwise be ignored, those being devfs, tmpfs, and the rootfs. e.g. --from=/tmp . Note that if both --from and --label are used, install expects the source path to have a .prop defining the same label. See .prop for more details.
+    指定源文件系统或其根路径。`ADDR`可以是设备uuid或路径。如果是路径，则表示安装安装来源的路径。该选项还可用于指定本来会被忽略的源路径，即devfs、tmpfs和rootfs，例如`--from=/tmp`。需要注意的是，如果同时使用`--from`和`--label`选项，`install`需要源路径有一个定义了相同标签的`.prop`。更多详情请参阅`.prop`。
 
   --to=ADDR
-    Same as --from but specifies the target filesystem by uuid or its root path. This option can also be used to specify filesystems that are otherwise ignored including tmpfs. i.e. --to=ADDR where ADDR matches the tmpfs device address or its mount point path. e.g. --to=/tmp
+    与`--from`相同，但根据uuid或根目录指定目标文件系统。该选项还可用于指定本来会被忽略的文件系统，包括tmpfs。即，`--to=ADDR`的`ADDR`可以匹配tmpfs的设备地址或挂载点，如`--to=/tmp`。
 
   --fromDir=PATH
-    Install PATH from source. PATH is relative to the root of the source filesystem or path given by --from. The default is .
+    安装源文件系统的PATH。PATH是相对路径，相对于源文件系统根目录或`--from`给定的路径，默认为`.`。
 
   --root=PATH
-    Same as --fromDir but for the target filesystem.
+    与`--fromDir`相同但适用于目标文件系统。
 
   --toDir=PATH
-    Same as --root. Either can be used. It is meaningless to specify both and is not documented which takes precedence in such a case.
+    与`--root`相同，二者均可使用。同时使用二者没有意义，且这种情况下会优先使用哪一个并无资料记录。
 
   -u, --update
-    Indicates that install should prompt the user before modifying files. This invokes -i and -u for /bin/cp.
+    代表`install`在改动文件之前应该提醒用户。这一参数调用了`/bin/cp`的`-i`与`-u`选项。
 
-The following can override settings defined in .prop in the source filesystem.
+下列选项可以覆盖源文件系统`.prop`中的设置。
 
   --label=LABEL
-    use LABEL for label instead of any value specified by .prop
+    使用LABEL作为标签，而不是`.prop`定义的值
 
   --nosetlabel
-    do not set target label. --nolabelset is deprecated
+    不要设定目标文件系统的标签。`--nolabelset`已经废弃
 
   --nosetboot
-    do not set target as default boot device when rebooting. --noboot is deprecated
+    不要将目标文件系统在重启后设为默认引导设备。`--noboot`已经废弃
 
   --noreboot
-    do not reboot after install
+    安装完成后不要重启
 
 .prop
-  .prop should have valid lua syntax for a table of keys and their values: e.g. "{label='OpenOS'}"
-  All fields are optional, as is the .prop file
+  `.prop`应该遵循正确的Lua语法，存储一个内含键值对的表，如"{label='OpenOS'}"。
+  所有键值对都是可选的，`.prop`文件也是。
 
   label:string
-    Declares an identifying name of the installation. This is displayed by install during source selection and also can be used on the commandline: e.g. (where {label="tape"} is given) `install tape`. If setlabel is true, this value is used for the target filesystem label. --label overrides this value. Note that install uses a case insensitive search: e.g. install TAPE works the same as install tape.
+    定义用来辨认安装程序的名称。该名称会在`install`进行安装来源选择时显示，还可用在命令行中：如，`install tape`（已经给定{label="tape"}）。若`setlable`为true，该值还会被用作目标文件系统的标签。`--label`会覆盖这个值。请注意`install`搜索时不区分大小写，比如`install TAPE`与`install tape`效果相同。
 
   setlabel:boolean
-    Determines whether the install should set the target filesystem's label. If .prop does not define a label and the user does not define a command line --label=LABEL, setlabel has no action. --nosetlabel overrides this value
+    决定`install`是否要设置目标文件系统的标签。若`.prop`没有定义标签，且用户也未通过`--label=LABEL`定义标签，则`setlabel`不会起效。 `--nosetlabel`会覆盖这个值。
 
   setboot:boolean
-    Determines if the target filesystem should be set as the machine's default boot device. Default is false, overriden by --nosetboot
+    决定是否要将目标文件系统设定为电脑的默认引导设备。默认为false，会被`--nosetboot`覆盖。
 
   reboot:boolean
-    Determines if the machine should reboot after the install completes. Overriden by --noreboot
+    决定电脑是否要在安装完成后重启，会被`--noreboot`覆盖。
 
   ignore:boolean
-    If true, the installer will skip the source filesystem and not include it for selection
+    若为true，安装程序会跳过该源文件系统，不将其加入待选列表。
 
-  EXAMPLE:
+  样例：
     {label='OpenOS', setlabel=true, setboot=true, reboot=true}
 
-.install ENVIRONMENT
-  A loot disc can optionally provide a custom installation script at the root of the source filesytem selected for installation. The script must be named ".install"
-  When provided, the default install action is replaced by executation of this script. The default action is to copy all source files to the destination
-  A table of configuration options, named `install`, is provided in _ENV
-  These are the keys and their descriptions of that table
+.install环境变量
+  战利品软盘可选择提供自定义安装脚本，脚本位于选择进行安装的源文件系统根目录。脚本必须命名为".install"。
+  提供脚本后，默认的安装操作将会被替换为执行此脚本。默认操作是将所有源文件复制到目标位置。
+  _ENV提供了一个名为`install`的表，装有配置项。
+  下列是表中的键与其描述。
 
   _ENV.install.from:
-    This is the path of the selected source filesystem to install from. It should be the path to the executing .install
-    example: /mnt/ABC/.install is executing, thus _ENV.install.from is "/mnt/ABC/"
+    这是所选择的源文件系统，应当为正在运行的`.install`所在的路径。
+    样例：`/mnt/ABC/.install`正在运行，因此`_ENV.install.from`为"/mnt/ABC/"。
 
   _ENV.install.to:
-    This is the path of the selected target filesystem to install to.
-    example: "/"
+    这是目标文件系统中的安装路径。
+    样例："/"。
 
   _ENV.install.fromDir
-    This is the relative path to use in the source filesystem as passed by command line to install. If unspecified to install it defaults to "."
-    example: Perhaps the user executed `install --fromDir="bin"` with the intention that only files under /mnt/ABC/bin would be copied to their rootfs
+    这是命令行传递给`install`的，用在源文件系统中的相对路径。若并未给`install`指定这一参数默认为`.`。
+    样例：假设用户执行了`install --fromDir="bin"`，意在只有`/mnt/ABC/bin`路径下的文件会被复制到用户的rootfs。 
 
   _ENV.install.root
-    This is the relative path to use in the target filesystem as passed by command line to install. If unspecified to install it defaults to "."
-    example: The user prefers to install to usr/ and uses `install --root=usr` and here _ENV.install.root would be "usr"
+    这是命令行传递给`install`的，用在目标文件系统中的相对路径。若并未给`install`指定这一参数默认为`.`。
+    样例：用户想要安装到`/usr`，并且使用了`install --root=usr`，那么`_ENV.install.root`将会是"usr"。
 
   _ENV.install.update
-    Assigned value of --update, see OPTIONS
+    `--update`被设定的值，参见选项章节
 
   _ENV.install.label
-    Assigned value of --label or .prop's label, see OPTIONS
+    `--label`被设定的值或`.prop`设定的标签，参见选项章节
 
   _ENV.install.setlabel
-    Assigned value of .prop's setlabel unless --nosetlabel, see OPTIONS
+    `.prop`的`setlabel`被设定的值，除非有`--nosetlabel`，参见选项章节
 
   _ENV.install.setboot
-    Assigned value of .prop's boot unless --nosetboot, see OPTIONS
+    `.prop`的`boot`被设定的值，除非有`--nosetboot`，参见选项章节
 
   _ENV.install.reboot
-    Assigned value of .prop's reboot unless --noreboot, see OPTIONS
+    `.prop`的`reboot`被设定的值，除非有`--noreboot`，参见选项章节
 
-EXAMPLES
+样例
   install
-    Searches all non rootfs filesystems to install from, and all non tmpfs filesystems to install to. Prompts the user for a selection, and copies. If .prop is defined in source, sets label and will prompt for reboot when completed.
+    搜索所有可用作安装来源的非rootfs文件系统，以及所有可用作安装目标的非tmpfs文件系统。然后提示用户进行选择，并复制文件。若来源中定义了`.prop`，则会设定标签，并在安装完成后提示重启。
 
   install openos
-    Searches candidates source filesystems that have .prop's that define label="OpenOS" and prompts the user to confirm install to candidate target filesystems.
+    搜索待选的源文件系统，找出其中有`.prop`且定义了label="OpenOS"的。然后提示用户确认安装到备选的目标文件系统。
 
 

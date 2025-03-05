@@ -1,16 +1,16 @@
-NAME
-  resolution - get or set screen resolution
+名称
+  resolution - 显示或设定显示屏分辨率
 
-SYNOPSIS
+用法
   resolution
   resolution WIDTH HEIGHT
 
-DESCRIPTION
-  The `resolution` program is used to write the resolution of the current primary screen to the standard output, or to change the resolution to a new value.
+描述
+  `resolution`程序可将首选显示器的当前分辨率输出到标准输出，或将分辨率设定为新值。
 
-EXAMPLES
+样例
   resolution
-    Displays the current screen resolution.
+    输出显示屏的当前分辨率
 
   resolution 30 10
-    Sets the screen's resolution to 30 by 10 characters.
+    将显示屏的分辨率设定为30x10，单位为字符。

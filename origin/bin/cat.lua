@@ -11,12 +11,12 @@ local input_method, input_param = "read", require("tty").getViewport()
 for i = 1, #args do
   local arg = shell.resolve(args[i])
   if fs.isDirectory(arg) then
-    io.stderr:write(string.format('cat %s: Is a directory\n', arg))
+    io.stderr:write(string.format('cat %s: 为目录\n', arg))
     os.exit(1)
   else
     local file, reason
     if args[i] == "-" then
-      file, reason = io.stdin, "missing stdin"
+      file, reason = io.stdin, "无标准输入"
       input_method, input_param = "readLine", false
     else
       file, reason = fs.open(arg)

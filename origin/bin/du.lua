@@ -7,20 +7,20 @@ if #args == 0 then
 end
 
 local TRY=[[
-Try 'du --help' for more information.]]
+请执行'du --help'以获取更多信息。]]
 
 local VERSION=[[
 du (OpenOS bin) 1.0
-Written by payonel, patterned after GNU coreutils du]]
+由payonel编写，以GNU coreutils的du为模板]]
 
 local HELP=[[
-Usage: du [OPTION]... [FILE]...
-Summarize disk usage of each FILE, recursively for directories.
+用法: du [选项]... [文件]...
+统计每个文件的磁盘占用，递归处理目录。
 
-  -h, --human-readable  print sizes in human readable format (e.g., 1K 234M 2G)
-  -s, --summarize       display only a total for each argument
-      --help     display this help and exit
-      --version  output version information and exit]]
+  -h, --human-readable  以更易于阅读的形式输出文件大小（如1K 234M 2G）
+  -s, --summarize       只显示每个参数的总计结果
+      --help     显示该帮助信息并退出
+      --version  输出版本信息并退出]]
 
 if options.help then
   print(HELP)
@@ -52,7 +52,7 @@ local bSummary = opCheck('s', 'summarize')
 
 if next(options) then
   for op,v in pairs(options) do
-    io.stderr:write(string.format("du: invalid option -- '%s'\n", op))
+    io.stderr:write(string.format("du: 无效选项 -- '%s'\n", op))
   end
   io.stderr:write(TRY..'\n')
   return 1
@@ -91,7 +91,7 @@ local function visitor(rpath)
       dirs = dirs + vdirs
     end
 
-    if dirs == 0 then -- no child dirs
+    if dirs == 0 then -- 无子目录
       if not bSummary then
         printSize(subtotal, rpath)
       end
@@ -108,7 +108,7 @@ for i,arg in ipairs(args) do
   local path = shell.resolve(arg)
 
   if not fs.exists(path) then
-    io.stderr:write(string.format("du: cannot access '%s': no such file or directory\n", arg))
+    io.stderr:write(string.format("du: 无法访问'%s': 不存在该文件或目录\n", arg))
     return 1
   else
     if fs.isDirectory(path) then

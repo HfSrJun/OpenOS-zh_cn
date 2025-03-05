@@ -1,23 +1,23 @@
-NAME
-  wget - download files via http
+名称
+  wget - 通过http下载文件
 
-SYNOPSIS
+用法
   wget URL [FILE]
 
-DESCRIPTION
-  The wget program allows downloading programs from the interwebs, given the URL to download from.
+描述
+  `wget`程序可以从互联网上下载程序，需给出下载来源URL。
 
-  The wget program requires an internet card and internet access to be enabled in the mod's configuration.
+  `wget`程序需要用到因特网卡，还需要在模组的配置文件内启用访问互联网的功能。
 
-OPTIONS
+选项
   -f
-    do not prompt before overwriting
+    覆盖文件前不进行提示
   -q
-    only print errors, no status messages
+    只输出报错，不输出状态信息
 
-EXAMPLES
+样例
   wget http://example.com/data.zip
-    Downloads the file `data.zip` and saves it as `data.zip`.
+    下载文件`data.zip`并将其保存为`data.zip`。
 
   wget http://example.com/data.zip blah.zip
-    Downloads the file `data.zip` and saves it as `blah.zip`.
+    下载文件`data.zip`并将其保存为`blah.zip`。

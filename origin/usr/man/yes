@@ -1,24 +1,22 @@
-NAME
-  yes - Automatically answers yes to every question.
+名称
+  yes - 自动对每个问题回答“是”
 
-SYNOPSIS
+用法
   yes [string]...
   yes [-V/h]
 
-DESCRIPTION
-  Prints strings in command line arguments, if there is none, prints 'y'.
-  Followed by newline, until it is killed.
+描述
+  在命令行中输出字符串，若不指定则输出"y"。每条输出后换行，直到终止运行。
 
-  This might be used for programs which don't have force (-f) option
-  and require user interaction.
+  有助于使用没有强制（-f）选项但要求用户操作的程序。
 
-EXAMPLES
+样例
   yes
-    Says y on every line.
+    在每一行都输出"y"。
 
   yes no
-    Says no on every line.
+    在每一行都输出"no"。
 
   yes "yes: I'm great servant, but an evil master."
-    Repeats sentence.
+    重复这个句子。
 

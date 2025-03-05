@@ -1,30 +1,30 @@
---[[ This program allows downloading and uploading from and to pastebin.com.
-     Authors: Sangar, Vexatos ]]
+--[[ 该程序可用于从pastebin.com下载程序，或上传程序。
+     作者: Sangar, Vexatos ]]
 local component = require("component")
 local fs = require("filesystem")
 local internet = require("internet")
 local shell = require("shell")
 
 if not component.isAvailable("internet") then
-  io.stderr:write("This program requires an internet card to run.")
+  io.stderr:write("该程序需要因特网卡才能运行。")
   return
 end
 
 local args, options = shell.parse(...)
 
--- This gets code from the website and stores it in the specified file.
+-- 该代码从网站获取代码并将其保存到指定文件中。
 local function get(pasteId, filename)
   local f, reason = io.open(filename, "w")
   if not f then
-    io.stderr:write("Failed opening file for writing: " .. reason)
+    io.stderr:write("无法打开文件进行写入: " .. reason)
     return
   end
 
-  io.write("Downloading from pastebin.com... ")
+  io.write("正在从pastebin.com下载... ")
   local url = "https://pastebin.com/raw/" .. pasteId
   local result, response = pcall(internet.request, url)
   if result then
-    io.write("success.\n")
+    io.write("成功\n")
     for chunk in response do
       if not options.k then
         string.gsub(chunk, "\r\n", "\n")
@@ -33,16 +33,16 @@ local function get(pasteId, filename)
     end
 
     f:close()
-    io.write("Saved data to " .. filename .. "\n")
+    io.write("将数据保存到 " .. filename .. "\n")
   else
-    io.write("failed.\n")
+    io.write("失败\n")
     f:close()
     fs.remove(filename)
-    io.stderr:write("HTTP request failed: " .. response .. "\n")
+    io.stderr:write("HTTP请求失败: " .. response .. "\n")
   end
 end
 
--- This makes a string safe for being used in a URL.
+-- 该代码确保字符串可安全用于URL。
 local function encode(code)
   if code then
     code = string.gsub(code, "([^%w ])", function (c)
@@ -53,12 +53,11 @@ local function encode(code)
   return code
 end
 
--- This stores the program in a temporary file, which it will
--- delete after the program was executed.
+-- 该代码将程序存储到临时文件，在程序执行完成后会删除。
 local function run(pasteId, ...)
   local tmpFile = os.tmpname()
   get(pasteId, tmpFile)
-  io.write("Running...\n")
+  io.write("正在运行...\n")
 
   local success, reason = shell.execute(tmpFile, nil, ...)
   if not success then
@@ -67,28 +66,28 @@ local function run(pasteId, ...)
   fs.remove(tmpFile)
 end
 
--- Uploads the specified file as a new paste to pastebin.com.
+-- 将指定文件上传为pastebin.com的一个新paste。
 local function put(path)
   local config = {}
   local configFile = loadfile("/etc/pastebin.conf", "t", config)
   if configFile then
     local result, reason = pcall(configFile)
     if not result then
-      io.stderr:write("Failed loading config: " .. reason)
+      io.stderr:write("加载配置失败: " .. reason)
     end
   end
   config.key = config.key or "fd92bd40a84c127eeb6804b146793c97"
   local file, reason = io.open(path, "r")
 
   if not file then
-    io.stderr:write("Failed opening file for reading: " .. reason)
+    io.stderr:write("无法打开文件进行读取: " .. reason)
     return
   end
 
   local data = file:read("*a")
   file:close()
 
-  io.write("Uploading to pastebin.com... ")
+  io.write("正在上传到pastebin.com... ")
   local result, response = pcall(internet.request,
         "https://pastebin.com/api/api_post.php",
         "api_option=paste&" ..
@@ -104,16 +103,16 @@ local function put(path)
       info = info .. chunk
     end
     if string.match(info, "^Bad API request, ") then
-      io.write("failed.\n")
+      io.write("失败\n")
       io.write(info)
     else
-      io.write("success.\n")
+      io.write("成功\n")
       local pasteId = string.match(info, "[^/]+$")
-      io.write("Uploaded as " .. info .. "\n")
-      io.write('Run "pastebin get ' .. pasteId .. '" to download anywhere.')
+      io.write("上传为" .. info .. "\n")
+      io.write('运行 "pastebin get ' .. pasteId .. '" 以将其下载到任意位置')
     end
   else
-    io.write("failed.\n")
+    io.write("失败\n")
     io.stderr:write(response)
   end
 end
@@ -129,7 +128,7 @@ elseif command == "get" then
     local path = shell.resolve(args[3])
     if fs.exists(path) then
       if not options.f or not os.remove(path) then
-        io.stderr:write("file already exists")
+        io.stderr:write("文件已存在")
         return
       end
     end
@@ -143,11 +142,10 @@ elseif command == "run" then
   end
 end
 
--- If we come here there was some invalid input.
-io.write("Usages:\n")
-io.write("pastebin put [-f] <file>\n")
-io.write("pastebin get [-f] <id> <file>\n")
-io.write("pastebin run [-f] <id> [<arguments...>]\n")
-io.write(" -f: Force overwriting existing files.\n")
-io.write(" -k: keep line endings as-is (will convert\n")
-io.write("     Windows line endings to Unix otherwise).")
+-- 如果执行到了这里代表有无效输入
+io.write("用法:\n")
+io.write("pastebin put [-f] <文件>\n")
+io.write("pastebin get [-f] <id> <文件>\n")
+io.write("pastebin run [-f] <id> [<参数...>]\n")
+io.write(" -f: 强制覆盖现有文件。\n")
+io.write(" -k: 让换行符保持原样（否则会将Windows换行符转化为Unix换行符）。")

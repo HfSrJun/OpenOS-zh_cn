@@ -1,52 +1,51 @@
-NAME
-  rm - remove files or directories
+名称
+  rm - 删除文件或目录
 
-SYNOPSIS
+用法
   rm [OPTION]... FILE...
 
-DESCRIPTION
-  Removes all of the specified files, one by one. By default, it does not remove directories. To remove a mount, please use umount.
+描述
+  逐个删除给定的所有文件。默认情况下不会删除目录。要移除挂载点，请使用`unmount`。
 
-  If the -I option is given, and there are more than three files or the -r, -R, or --recursive are given, the rm prompts the user for whether to proceed with the entire operation. If the response is not affirmative, the entire command is aborted.
+  如果给定`-I`选项并有超过3个文件，或者给定`-r`、`-R`或`--recursive`参数，那么`rm`会提示用户按下回车键确定操作。若不进行确定那整条命令都会放弃执行。
 
-  Otherwise, if a file is unwritablle, standard input is a terminal, and the -f or --force option is not given, or the -i option is given, rm prompts the user for whether to remove the file. If the response is not affirmative, the file is skipped.
+  此外，当标准输入为控制台时，若文件不可写入且未给定`-f`或者`--force`选项，又或者给定了`-i`选项，那么`rm`会提示用户选择是否要删除文件。若不进行确定那么文件会跳过。
 
-OPTIONS
-  Remove (unlink) the FILE(s).
+选项
+  删除（或取消链接）传递的FILE（一或多个）。
 
-  -f, --force
-         ignore nonexistent files and arguments, never prompt
+  -f, --force  
+         忽略不存在的文件与参数，从不提示
 
-  -i     prompt before every removal
+  -i     每次删除前都提示
 
-  -I     prompt once before removing more than three files, or when removing recursively; less intrusive than -i, while still giving protection against most mistakes
+  -I     在删除超过三个文件或递归删除前进行一次提示。比`-i`对用户带来的干扰小，但仍然可以避免大部分错误
 
   --one-file-system
-         when removing a hierarchy recursively, skip any directory that is on a file system different from that of the corresponding command line argument
-
+         递归删除某一层级时，跳过与对应命令行参数位于不同文件系统的目录
   --no-preserve-root
-         do not treat '/' specially
+         不要特殊处理`/`
 
   --preserve-root
-         do not remove '/' (default)
+         不要删除`/`（默认）
 
   -r, -R, --recursive
-         remove directories and their contents recursively
+         递归删除目录与其中的内容
 
   -d, --dir
-         remove empty directories
+         删除空目录
 
   -v, --verbose
-         explain what is being done
+         显示当前完成的操作
 
   --help
-         display this help and exit.
+         显示帮助信息并退出
 
-By default, rm does not remove directories.  Use the --recursive (-r or -R) option to remove each listed directory, too, along with all of its contents.
+默认情况下，`rm`不会删除目录。使用`--recursive`（`-r`或`-R`）选项可以一并删除列出的目录，同时删除其中的内容。
 
-To remove a file whose name starts with a '-', for example '-foo', use this command:
+要删除文件名以`-`开头的文件，例如`-foo`，使用此命令：
   rm ./-foo
 
-EXAMPLES
+样例
   rm a
-    Deletes the file `a`.
+    删除文件`a`。

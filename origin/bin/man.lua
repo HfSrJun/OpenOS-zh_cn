@@ -3,8 +3,8 @@ local shell = require("shell")
 
 local args = shell.parse(...)
 if #args == 0 then
-  io.write("Usage: man <topic>\n")
-  io.write("Where `topic` will usually be the name of a program or library.\n")
+  io.write("用法: man <主题>\n")
+  io.write("`主题`通常是程序或运行库的名称。\n")
   return 1
 end
 
@@ -16,5 +16,5 @@ for path in string.gmatch(os.getenv("MANPATH"), "[^:]+") do
     os.exit()
   end
 end
-io.stderr:write("No manual entry for " .. topic .. '\n')
+io.stderr:write("没有手册条目" .. topic .. '\n')
 return 1

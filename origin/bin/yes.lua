@@ -1,23 +1,23 @@
---[[Lua implementation of the UN*X yes command--]]
+--[[UN*X yes命令的Lua实现--]]
 local shell = require("shell")
 
 local args, options = shell.parse(...)
 
 if options.V or options.version then
   io.write("yes v:1.0-3\n")
-  io.write("Inspired by functionality of yes from GNU coreutils\n")
+  io.write("受到GNU coreutils的yes功能启发\n")
   return 0
 end
 
 if options.h or options.help then
-  io.write("Usage: yes [string]...\n")
-  io.write("OR:    yes [-V/h]\n")
+  io.write("用法: yes [字符串]...\n")
+  io.write("或者: yes [-V/h]\n")
   io.write("\n")
-  io.write("yes prints the command line arguments, or 'y', until is killed.\n")
+  io.write("`yes` 在命令行中输出字符串，或者\"y\",=，直到停止运行。\n")
   io.write("\n")
-  io.write("Options:\n")
-  io.write("	-V, --version	Version\n")
-  io.write("	-h, --help  	This help\n")
+  io.write("选项:\n")
+  io.write("	-V, --version	输出版本信息\n")
+  io.write("	-h, --help  	输出该帮助信息\n")
   return 0
 end
 

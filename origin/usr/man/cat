@@ -1,15 +1,15 @@
-NAME
-  cat - concatenate files and print on the standard output
+名称
+  cat - 连接文件并显示到标准输出上
 
-SYNOPSIS
+用法
   cat [FILE]...
 
-DESCRIPTION
-  `cat` allows concatenating files or standard input to standard output.
+描述
+  `cat`可连接文件或标准输入，并显示到标准输出上
 
-EXAMPLES
+样例
   cat
-    Copy standard input to standard output.
+    将标准输入复制到标准输出。
 
   cat test.txt
-    Output contents of file test.txt.
+    输出文件"test.txt"的内容。

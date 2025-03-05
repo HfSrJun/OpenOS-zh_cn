@@ -4,7 +4,7 @@ local options
 do
   local basic, reason = loadfile("/lib/core/install_basics.lua", "bt", _G)
   if not basic then
-    io.stderr:write("failed to load install: " .. tostring(reason) .. "\n")
+    io.stderr:write("加载install失败: " .. tostring(reason) .. "\n")
     return 1
   end
   options = basic(...)
@@ -15,7 +15,7 @@ if not options then
 end
 
 if computer.freeMemory() < 50000 then
-  print("Low memory, collecting garbage")
+  print("内存不足，回收垃圾")
   for i = 1, 20 do
     os.sleep(0)
   end
@@ -29,7 +29,7 @@ for _, inst in ipairs(options.cp_args) do
   end
 end
 
-print("Installation complete!")
+print("安装完成！")
 
 if options.setlabel then
   pcall(options.target.dev.setLabel, options.label)
@@ -38,16 +38,16 @@ end
 if options.setboot then
   local address = options.target.dev.address
   if computer.setBootAddress(address) then
-    print("Boot address set to " .. address)
+    print("引导地址设定为" .. address)
   end
 end
 
 if options.reboot then
-  io.write("Reboot now? [Y/n] ")
+  io.write("立刻重启？[Y/n] ")
   if ((io.read() or "n") .. "y"):match("^%s*[Yy]") then
-    print("\nRebooting now!\n")
+    print("\n正在重启！\n")
     computer.shutdown(true)
   end
 end
 
-print("Returning to shell.\n")
+print("正在返回shell。\n")

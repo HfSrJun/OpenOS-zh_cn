@@ -39,10 +39,10 @@ local function load(name, args)
       rc.loaded[name] = env
       return env
     else
-      return nil, string.format("%s failed to start: %s", fileName, reason)
+      return nil, string.format("开始运行%s失败: %s", fileName, reason)
     end
   end
-  return nil, string.format("%s failed to load: %s", fileName, reason)
+  return nil, string.format("加载%s失败: %s", fileName, reason)
 end
 
 function rc.unload(name)
@@ -53,7 +53,7 @@ local function rawRunCommand(conf, name, cmd, args, ...)
   local result, what = load(name, args)
   if result then
     if not cmd then
-      io.output():write("Commands for service " .. name .. "\n")
+      io.output():write("服务的指令" .. name .. "\n")
       for command, val in pairs(result) do
         if type(val) == "function" then
           io.output():write(tostring(command) .. " ")
@@ -78,7 +78,7 @@ local function rawRunCommand(conf, name, cmd, args, ...)
       conf.enabled = conf.enabled or {}
       for _, _name in ipairs(conf.enabled) do
         if name == _name then
-          return nil, "Service already enabled"
+          return nil, "服务已经启用"
         end
       end
       conf.enabled[#conf.enabled + 1] = name
@@ -92,7 +92,7 @@ local function rawRunCommand(conf, name, cmd, args, ...)
       end
       return saveConfig(conf)
     else
-      what = "Command '" .. cmd .. "' not found in daemon '" .. name .. "'"
+      what = "未在守护进程'" .. name .. "'中找到指令'" .. cmd .. "'"
     end
   end
   return nil, what
@@ -122,7 +122,7 @@ local stream = io.stderr
 local write = stream.write
 
 if select("#", ...) == 0 then
-  -- if called during boot, pipe errors to onError handler
+  -- 若在引导过程中调用，则用管道将错误传输给onError处理函数
   if _G.runlevel == "S" then
     write = function(_, msg)
       require("event").onError(msg)
@@ -131,7 +131,7 @@ if select("#", ...) == 0 then
 
   local results, reason = allRunCommand("start")
   if not results then
-    local msg = "rc failed to start:"..tostring(reason)
+    local msg = "rc启动失败:"..tostring(reason)
     write(stream, msg, "\n")
     return
   end

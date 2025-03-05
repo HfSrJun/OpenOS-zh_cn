@@ -12,7 +12,7 @@ local real_after, cpu_after = computer.uptime(), os.clock()
 local real_diff = real_after - real_before
 local cpu_diff = cpu_after - cpu_before
 
-print(string.format('real%5dm%.3fs', math.floor(real_diff/60), real_diff%60))
-print(string.format('cpu %5dm%.3fs', math.floor(cpu_diff/60), cpu_diff%60))
+print(string.format('真实时间%5dm%.3fs', math.floor(real_diff/60), real_diff%60))
+print(string.format('cpu 时间%5dm%.3fs', math.floor(cpu_diff/60), cpu_diff%60))
 
 return cmd_result

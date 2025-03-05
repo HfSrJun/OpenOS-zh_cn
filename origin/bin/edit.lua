@@ -1,7 +1,7 @@
 local fs = require("filesystem")
 local keyboard = require("keyboard")
 local shell = require("shell")
-local term = require("term") -- TODO use tty and cursor position instead of global area and gpu
+local term = require("term") -- 待办：使用tty和光标位置而不是全局区域和gpu
 local text = require("text")
 local unicode = require("unicode")
 
@@ -11,7 +11,7 @@ end
 local gpu = term.gpu()
 local args, options = shell.parse(...)
 if #args == 0 then
-  io.write("Usage: edit <filename>")
+  io.write("用法: edit <文件名>")
   return
 end
 
@@ -19,28 +19,28 @@ local filename = shell.resolve(args[1])
 local file_parentpath = fs.path(filename)
 
 if fs.exists(file_parentpath) and not fs.isDirectory(file_parentpath) then
-  io.stderr:write(string.format("Not a directory: %s\n", file_parentpath))
+  io.stderr:write(string.format("不是目录: %s\n", file_parentpath))
   return 1
 end
 
 local readonly = options.r or fs.get(filename) == nil or fs.get(filename).isReadOnly()
 
 if fs.isDirectory(filename) then
-  io.stderr:write("file is a directory\n")
+  io.stderr:write("文件为目录\n")
   return 1
 elseif not fs.exists(filename) and readonly then
-  io.stderr:write("file system is read only\n")
+  io.stderr:write("文件系统为只读\n")
   return 1
 end
 
 local function loadConfig()
-  -- Try to load user settings.
+  -- 尝试加载用户设置
   local env = {}
   local config = loadfile("/etc/edit.cfg", nil, env)
   if config then
     pcall(config)
   end
-  -- Fill in defaults.
+  -- 填充默认值
   env.keybinds = env.keybinds or {
     left = {{"left"}},
     right = {{"right"}},
@@ -63,7 +63,7 @@ local function loadConfig()
     cut = {{"control", "k"}},
     uncut = {{"control", "u"}}
   }
-  -- Generate config file if it didn't exist.
+  -- 若配置文件不存在，则生成。
   if not config then
     local root = fs.get("/")
     if root and not root.isReadOnly() then
@@ -90,11 +90,11 @@ local scrollX, scrollY = 0, 0
 local config = loadConfig()
 
 local cutBuffer = {}
--- cutting is true while we're in a cutting operation and set to false when cursor changes lines
--- basically, whenever you change lines, the cutting operation ends, so the next time you cut a new buffer will be created
+-- cutting变量在进行剪切操作时会设为true，光标换行时会设为
+-- 简而言之，当换行时剪切操作会终止，因此下次剪切时会创建新的缓存
 local cutting = false
 
-local getKeyBindHandler -- forward declaration for refind()
+local getKeyBindHandler -- 将定义传递给refind()
 
 local function helpStatusText()
   local function prettifyKeybind(label, command)
@@ -115,11 +115,11 @@ local function helpStatusText()
            unicode.upper(key) ..
            "] "
   end
-  return prettifyKeybind("Save", "save") ..
-         prettifyKeybind("Close", "close") ..
-         prettifyKeybind("Find", "find") ..
-         prettifyKeybind("Cut", "cut") ..
-         prettifyKeybind("Uncut", "uncut")
+  return prettifyKeybind("保存", "save") ..
+         prettifyKeybind("关闭", "close") ..
+         prettifyKeybind("查找", "find") ..
+         prettifyKeybind("剪切", "cut") ..
+         prettifyKeybind("黏贴剪切内容", "uncut")
 end
 
 -------------------------------------------------------------------------------
@@ -248,7 +248,7 @@ local function setCursor(nbx, nby)
     end
   end
   term.setCursor(nbx - scrollX, nby - scrollY)
-  --update with term lib
+  --随term运行库更新
   nbx, nby = getCursor()
   local locstring = string.format("%d,%d", nby, nbx)
   if #cutBuffer > 0 then
@@ -302,11 +302,11 @@ local function left()
     else
       setCursor(cbx - 1, cby)
     end
-    return true -- for backspace
+    return true -- 处理退格
   elseif cby > 1 then
     setCursor(cbx, cby - 1)
     ende()
-    return true -- again, for backspace
+    return true -- 也是处理退格
   end
 end
 
@@ -427,14 +427,14 @@ local function find()
   while running do
     if unicode.len(findText) > 0 then
       local sx, sy
-      for syo = 1, #buffer do -- iterate lines with wraparound
+      for syo = 1, #buffer do -- 迭代有换行符的行
         sy = (iby + syo - 1 + #buffer - 1) % #buffer + 1
         sx = string.find(buffer[sy], findText, syo == 1 and ibx or 1, true)
         if sx and (sx >= ibx or syo > 1) then
           break
         end
       end
-      if not sx then -- special case for single matches
+      if not sx then -- 查找到一个结果的特例
         sy = iby
         sx = string.find(buffer[sy], findText, nil, true)
       end
@@ -446,7 +446,7 @@ local function find()
       end
     end
     term.setCursor(7 + unicode.wlen(findText), h + 1)
-    setStatus("Find: " .. findText)
+    setStatus("查找: " .. findText)
 
     local _, address, char, code = term.pull("key_down")
     if address == term.keyboard() then
@@ -559,9 +559,9 @@ local keyBindHandlers = {
       f:close()
       local format
       if new then
-        format = [["%s" [New] %dL,%dC written]]
+        format = [["%s" [新建] %dL,%dC 已保存]]
       else
-        format = [["%s" %dL,%dC written]]
+        format = [["%s" %dL,%dC 已保存]]
       end
       setStatus(string.format(format, fs.name(filename), #buffer, chars))
     else
@@ -572,7 +572,7 @@ local keyBindHandlers = {
     end
   end,
   close = function()
-    -- TODO ask to save if changed
+    -- 代办：若产生改动则询问是否保存
     running = false
   end,
   find = function()
@@ -586,8 +586,7 @@ local keyBindHandlers = {
 
 getKeyBindHandler = function(code)
   if type(config.keybinds) ~= "table" then return end
-  -- Look for matches, prefer more 'precise' keybinds, e.g. prefer
-  -- ctrl+del over del.
+  -- 查找匹配，倾向于更“精准”的键位，如更倾向于ctrl+del而不是del。
   local result, resultName, resultWeight = nil, nil, 0
   for command, keybinds in pairs(config.keybinds) do
     if type(keybinds) == "table" and keyBindHandlers[command] then
@@ -681,14 +680,14 @@ do
     end
     local format
     if readonly then
-      format = [["%s" [readonly] %dL,%dC]]
+      format = [["%s" [只读] %dL,%dC]]
     else
       format = [["%s" %dL,%dC]]
     end
     setStatus(string.format(format, fs.name(filename), #buffer, chars))
   else
     table.insert(buffer, "")
-    setStatus(string.format([["%s" [New File] ]], fs.name(filename)))
+    setStatus(string.format([["%s" [新文件] ]], fs.name(filename)))
   end
   setCursor(1, 1)
 end

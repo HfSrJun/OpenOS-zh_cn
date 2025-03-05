@@ -1,12 +1,12 @@
-NAME
-  unalias - removes aliases for programs
+名称
+  unalias - 移除程序的别名
 
-SYNOPSIS
+用法
   unalias name
 
-DESCRIPTION
-  Allows removal of aliases created with the `alias` command.
+描述
+  可用于删除`alias`命令创建的别名。
 
-EXAMPLES
+样例
   unalias dir
-    Removes the `dir` alias (usually an alias for `ls`).
+    删除`dir`别名（通常为`ls`的别名）。

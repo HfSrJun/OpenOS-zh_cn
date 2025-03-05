@@ -1,16 +1,16 @@
-NAME
-  label - show or change the label of file systems
+名称
+  label - 显示或修改文件系统的标签
 
-SYNOPSIS
+用法
   label FILE [STRING]
   label -a ADDRESS [STRING]
 
-DESCRIPTION
-  `label` allows reading and writing the label of file systems. The file system can either be specified by a path to or into a mount, or by its address.
+描述
+  `label`可以显示或修改文件系统的标签。文件系统可通过指向挂载点或挂载点内某处的路径指定，也可通过地址指定。
 
-EXAMPLES
+样例
   label /home
-    Write the label of the file system mounted at `/home` to the standard output.
+    将挂载在`/home`的文件系统的标签输出到标准输出。
 
   label -a 93f test
-    Change the label of the file system of which the address starts with `93f` to `test`.
+    修改地址以`93f`开头的文件系统的标签为“test”。

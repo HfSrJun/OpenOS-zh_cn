@@ -27,9 +27,21 @@ for address, info in pairs(devices) do
   end
 end
 
-io.write(text.padRight("Address", 10))
+-- 原table的栏标题也用于索引设备属性，因此需要在输出时转换文本而不是直接修改
+local translate = {
+  ["Class"]="类别",
+  ["Description"]="描述",
+  ["Product"]="产品名",
+  ["Vendor"]="制造商",
+  ["Capacity"]="容量",
+  ["Width"]="宽度",
+  ["Clock"]="时钟"
+}
+
+io.write(text.padRight("地址", 10))
 for col, name in ipairs(columns) do
-  io.write(text.padRight(name, m[col] + 2))
+--  io.write(text.padRight(name, m[col] + 2))
+  io.write(text.padRight(translate[name], m[col] + 2))
 end
 io.write("\n")
 

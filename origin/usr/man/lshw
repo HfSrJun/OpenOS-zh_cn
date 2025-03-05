@@ -1,8 +1,8 @@
-NAME
-  lshw - hardware viewer
+名称
+  lshw - 硬件查看器
 
-SYNOPSIS
+用法
   lshw
 
-DESCRIPTION
-  'lshw' shows you the device information of your PC.
+描述
+  `lshw`可以显示电脑的设备信息。

@@ -12,7 +12,7 @@ if #args == 0 then
   local input_handler = {hint = sh.hintHandler}
   while true do
     if io.stdin.tty and io.stdout.tty then
-      if not has_profile then -- first time run AND interactive
+      if not has_profile then -- 第一次运行和交互
         has_profile = true
         dofile("/etc/profile.lua")
       end
@@ -35,11 +35,11 @@ if #args == 0 then
           io.stderr:write(tostring(reason), "\n")
         end
       end
-    elseif command == nil then -- false only means the input was interrupted
+    elseif command == nil then -- false只代表输入被中断
       return -- eof
     end
   end
 else
-  -- execute command.
+  -- 执行命令。
   return sh.execute(...)
 end

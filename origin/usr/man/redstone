@@ -1,22 +1,22 @@
-NAME
-  redstone - access to redstone input and output
+名称
+  redstone - 访问红石输入输出
 
-SYNOPSIS
+用法
   redstone SIDE
   redstone SIDE VALUE
   redstone SIDE -b COLOR
   redstone SIDE -b COLOR VALUE
 
-DESCRIPTION
-  This program allows manipulating redstone output of the computer via the shell, if it has a built-in redstone card or is connected to a redstone I/O block. It can also be used to just display the current in- and output. If another mod is installed that provides bundled redstone logic, such as RedLogic, MineFactory Reloaded (Rednet Cables) or Project: Red, it can also be used to interact with bundled signals by passing the `-b` flag.
+描述
+  该程序可通过shell操作电脑的红石输出，前提是电脑内置了红石卡或连接到红石I/O端口方块。它还可显示当前存在的输入与输出。如果安装了提供集束红石的模组，如Redlogic、MineFactory Reloaded（红石线缆）或Project: Red，那传递`-b`标记后还能与集束红石交互。
 
-OPTIONS
+选项
   -b
-    interact with bundled signals
+    与集束信号交互
 
-EXAMPLES
+样例
   redstone front
-    Displays the simple in- and output on the front face of a computer with a redstone card.
+    显示电脑的前表面存在的简单输入/输出。
 
   redstone north -b lime 200
-    Sets the bundled `lime` output of a redstone I/O block's northern side to 200.
+    将红石I/O端口的北表面的集束信号`lime`（黄绿色）输出设置为200。

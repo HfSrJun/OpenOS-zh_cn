@@ -1,31 +1,30 @@
-NAME
-  head - Print the first 10 lines of each FILE to stdout.
+名称
+  head - 将每个FILE的前10行输出到标准输出
 
-SYNOPSIS
+用法
   head [OPTION]... [FILE]...
 
-DESCRIPTION
-  Print the first 10 lines of each FILE to stdout.
-  With no FILE, or when FILE is -, read stdin.
+描述
+  将每个FILE的前10行输出到标准输出。
+  若不给定FILE，或FILE为`-`，则读取标准输入。
 
-      --bytes=[-]n        print the first n bytes of each file'
-                            with the leading '-', print all but the last
-                            n bytes of each file
-      --lines=[-]n        print the first n lines instead of the first 10;
-                            with the leading '-', print all but the last
-                            n lines of each file
-  -q, --quiet, --silent   never print headers giving file names
-  -v, --verbose           always print headers giving file names
-      --help              print help message
+      --bytes=[-]n       显示每个文件的前n字节
+                           若前面加上'-'则输出文件除了后n字节以外的内容
+      --lines=[-]n       显示每个文件的前n行，而不是前10行
+                           若前面加上'-'则输出文件除了后n行以外的内容
+  -q, --quiet, --silent  never print headers giving file names
+  -v, --verbose          always print headers giving file names
+      --help             输出帮助信息
 
-EXAMPLES
+样例
   head
   head -
-    Read next 10 lines from standard in and print to standard out, then close.
+    读取标准输入的接下来10行，将它们输出到标准输出，然后关闭程序。
 
   head file.txt
-    Print first 10 lines of file.txt and print to stdout
+    输出`file.txt`的前10行到标准输出中
 
   head -n 32 file.txt
-    Print first 32 lines of file.txt and print to stdout
+    输出`file.txt`的前32行到标准输出中
+
 

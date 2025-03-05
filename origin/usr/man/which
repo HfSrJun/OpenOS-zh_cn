@@ -1,15 +1,15 @@
-NAME
-  which - locate a command
+名称
+  which - 定位命令位置
 
-SYNOPSIS
+用法
   which COMMAND
 
-DESCRIPTION
-  This program writes the full path to each of the specified programs to the standard output. If a program is an alias, this is indicated. If a program cannot be found and error message will be written.
+描述
+  该程序会将给定的各个程序的完整路径输出到标准输出。如果程序是别名则会注明。如果找不到程序，则会输出错误信息。
 
-EXAMPLES
+样例
   which ls
-    Displays `/bin/ls.lua`.
+    显示`/bin/ls.lua`。
 
   which doesntexist dir
-    Displays `doesntexist: file not found` and `dir: aliased to ls`.
+    显示`doesntexist: file not found`以及`dir: aliased to ls`。

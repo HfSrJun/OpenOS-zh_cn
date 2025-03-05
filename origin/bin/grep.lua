@@ -1,17 +1,17 @@
 --[[
-An adaptation of Wobbo's grep
+采用了Wobbo的grep
 https://raw.githubusercontent.com/OpenPrograms/Wobbo-Programs/master/grep/grep.lua
 ]]--
 
--- POSIX grep for OpenComputers
--- one difference is that this version uses Lua regex, not POSIX regex.
+-- 适用于OpenComputers的POSIX grep 
+-- 区别之一在于这个版本使用Lua正则表达式，而不是POSIX的。
 
 local fs = require("filesystem")
 local shell = require("shell")
 local tty = require("tty")
 local computer = require("computer")
 
--- Process the command line arguments
+-- 处理命令行参数
 
 local args, options = shell.parse(...)
 
@@ -22,9 +22,9 @@ local function printUsage(ostream, msg)
   if msg then
     s:write(msg,'\n')
   end
-  s:write([[Usage: grep [OPTION]... PATTERN [FILE]...
-Example: grep -i "hello world" menu.lua main.lua
-for more information, run: man grep
+  s:write([[用法: grep [选项]... 模式 [文件]...
+样例：grep -i "hello world" menu.lua main.lua
+要获取更多信息，请执行：man grep
 ]])
 end
 
@@ -45,7 +45,7 @@ local function pop(...)
   return result
 end
 
--- Specify the variables for the options
+-- 指定选项的变量
 local plain = pop('F','fixed-strings')
       plain = not pop('e','--lua-regexp') and plain
 local pattern_file = pop('file')
@@ -56,7 +56,7 @@ local stdin_label = pop('label') or '(standard input)'
 local stderr = pop('s','no-messages') and {write=function()end} or io.stderr
 local invert_match = not not pop('v','invert-match')
 
--- no version output, just help
+-- 没有版本信息输出，只有帮助信息
 if pop('V','version','help') then
   printUsage()
   return 0
@@ -66,11 +66,11 @@ local max_matches = tonumber(pop('max-count')) or math.huge
 local print_line_num = pop('n','line-number')
 local search_recursively = pop('r','recursive')
 
--- Table with patterns to check for
+-- 包含待搜索模式的表
 if pattern_file then
   local pattern_file_path = shell.resolve(pattern_file)
   if not fs.exists(pattern_file_path) then
-    stderr:write('grep: ',pattern_file,': file not found')
+    stderr:write('grep: ',pattern_file,': 未找到文件')
     return 2
   end
   table.insert(FILES, 1, PATTERNS[1])
@@ -119,12 +119,12 @@ local trim_back  = trim and function(s)return s:gsub('%s+$','')end or noop
 
 if next(options) then
   if not quiet then
-    printUsage(stderr, 'unexpected option: '..next(options))
+    printUsage(stderr, '未知选项: '..next(options))
     return 2
   end
   return 0
 end
--- Resolve the location of a file, without searching the path
+-- 解析文件的位置，不搜索路径
 local function resolve(file)
   if file:sub(1,1) == '/' then
     return fs.canonical(file)
@@ -136,16 +136,16 @@ local function resolve(file)
   end
 end
 
---- Builds a case insensitive patterns, code from stackoverflow
+--- 构造一个不区分大小写的模式，代码来自stackoverflow
 --- (questions/11401890/case-insensitive-lua-pattern-matching)
 if ignore_case then
   for i=1,#PATTERNS do
-    -- find an optional '%' (group 1) followed by any character (group 2)
+    -- 找到可选的'%'（第1组），后面跟着任意字母（第2组）
     PATTERNS[i] = PATTERNS[i]:gsub("(%%?)(.)", function(percent, letter)
       if percent ~= "" or not letter:match("%a") then
-        -- if the '%' matched, or `letter` is not a letter, return "as is"
+        -- 若'%'匹配，或`letter`不是字母，返回"as is"
         return percent .. letter
-      else -- case-insensitive
+      else -- 不区分大小写
         return string.format("[%s%s]", letter:lower(), letter:upper())
       end
     end)
@@ -176,7 +176,7 @@ if search_recursively then
   FILES=files
 end
 
--- Prepare an iterator for reading files
+-- 准备用来读取文件的迭代器
 local function readLines()
   local curHand = nil
   local curFile = nil
@@ -198,14 +198,14 @@ local function readLines()
         if fs.exists(file) then
           curHand, reason = io.open(file, 'r')
           if not curHand then
-            local msg = string.format("failed to read from %s: %s", meta.label, reason)
+            local msg = string.format("无法读取%s: %s", meta.label, reason)
             stderr:write("grep: ",msg,"\n")
             return false, 2
           else
             curFile = meta.label
           end
         else
-          stderr:write("grep: ",file,": file not found\n")
+          stderr:write("grep: ",file,": 未找到文件\n")
           return false, 2
         end
       end
@@ -309,7 +309,7 @@ for meta,status in readLines() do
   end
   if not meta then
     if type(status) == 'table' then if flush then
-      flush(status) end -- this was the last object, closing out
+      flush(status) end -- 最后一个目标，关闭退出
     elseif status then
       ec = status or ec
     end

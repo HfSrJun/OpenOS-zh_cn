@@ -31,21 +31,21 @@ else
   for i = 1, #args do
     local proxy, path = fs.get(shell.resolve(args[i]))
     if not proxy then
-      io.stderr:write(args[i], ": no such file or directory\n")
+      io.stderr:write(args[i], ": 不存在该文件或目录\n")
     else
       mounts[proxy] = path
     end
   end
 end
 
-local result = {{"Filesystem", "Used", "Available", "Use%", "Mounted on"}}
+local result = {{"文件系统", "已使用", "可用", "占用比例", "挂载位置"}}
 for proxy, path in pairs(mounts) do
   local label = proxy.getLabel() or proxy.address
   local used, total = proxy.spaceUsed(), proxy.spaceTotal()
   local available, percent
   if total == math.huge then
     used = used or "N/A"
-    available = "unlimited"
+    available = "无限"
     percent = "0%"
   else
     available = total - used

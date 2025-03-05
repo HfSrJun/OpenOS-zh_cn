@@ -6,7 +6,7 @@ local touch = loadfile(shell.resolve("touch", "lua"))
 local mkdir = loadfile(shell.resolve("mkdir", "lua"))
 
 if not touch then
-  local errorMessage = "missing tools for mktmp"
+  local errorMessage = "缺少mktmp所需的工具"
   io.stderr:write(errorMessage .. '\n')
   return false, errorMessage
 end
@@ -27,14 +27,14 @@ local verbose = pop('v', 'verbose')
 local quiet = pop('q', 'quiet')
 
 if pop('help') or #args > 1 or next(ops) then
-  print([[Usage: mktmp [OPTION] [PATH]
-Create a new file with a random name in $TMPDIR or PATH argument if given
-  -d              create a directory instead of a file
-  -v, --verbose   print result to stdout, even if no tty
-  -q, --quiet     do not print results to stdout, even if tty (verbose overrides)
-      --help      print this help message]])
+  print([[用法: mktmp [选项] [路径]
+创建一个名称随机的新文件，存放在$TMPDIR中，或`路径`参数中（给定的话）
+  -d              创建目录而不是文件
+  -v, --verbose   将结果输出到标准输出，即使没有tty也是如此
+  -q, --quiet     不要将结果输出到标准输出，即使存在tty（会被verbose覆盖）
+      --help      输出该帮助信息]])
   if next(ops) then
-    io.stderr:write("invalid option: " .. (next(ops)) .. '\n')
+    io.stderr:write("无效选项: " .. (next(ops)) .. '\n')
     return 1
   end
   return
@@ -52,7 +52,7 @@ local prefix = args[1] or os.getenv("TMPDIR") .. '/'
 if not fs.exists(prefix) then
   io.stderr:write(
     string.format(
-      "cannot create tmp file or directory at %s, it does not exist\n",
+      "无法在%s创建临时文件或目录，路径不存在\n",
       prefix))
   return 1
 end

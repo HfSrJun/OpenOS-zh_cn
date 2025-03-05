@@ -1,13 +1,13 @@
-NAME
-  more - primitive file viewer
+名称
+  more - 简易文件查看器
 
-SYNOPSIS
+用法
   more FILE
 
-DESCRIPTION
-  `more` allows viewing the contents of a file one screenful at a time.
-  There is no buffering which means you cannot scroll back, long lines will jump the view forward, but there is a small and fixed memory footprint even when piping long running programs with significant output
+描述
+  `more`可用于逐屏幕查看文件的内容。 
+  该程序没有缓存，因此不能向上滚动。较长的行会令视图向前跳转，但内存占用很小且固定不变，即使是运行时间较长、输出量较大的程序也是如此。
 
-EXAMPLES
+样例
   more /home/a.txt
-    Displays the contents of file `/home/a.txt`
+    显示文件`/home/a.txt`的内容。

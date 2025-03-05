@@ -4,28 +4,28 @@ local shell = require("shell")
 local sides = require("sides")
 
 if not component.isAvailable("redstone") then
-  io.stderr:write("This program requires a redstone card or redstone I/O block.\n")
+  io.stderr:write("该应用需要红石卡或红石I/O端口才能运行。\n")
   return 1
 end
 local rs = component.redstone
 
 local args, options = shell.parse(...)
 if #args == 0 and not options.w and not options.f then
-  io.write("Usage:\n")
-  io.write("  redstone <side> [<value>]\n")
+  io.write("用法:\n")
+  io.write("  redstone <方向> [<值>]\n")
   if rs.setBundledOutput then
-    io.write("  redstone -b <side> <color> [<value>]\n")
+    io.write("  redstone -b <方向> <颜色> [<值>]\n")
   end
   if rs.setWirelessOutput then
-    io.write("  redstone -w [<value>]\n")
-    io.write("  redstone -f [<frequency>]\n")
+    io.write("  redstone -w [<值>]\n")
+    io.write("  redstone -f [<频率>]\n")
   end
   return
 end
 
 if options.w then
   if not rs.setWirelessOutput then
-    io.stderr:write("wireless redstone not available\n")
+    io.stderr:write("无线红石不可用\n")
     return 1
   end
   if #args > 0 then
@@ -37,26 +37,26 @@ if options.w then
     end
     rs.setWirelessOutput(value)
   end
-  io.write("in: " .. tostring(rs.getWirelessInput()) .. "\n")
-  io.write("out: " .. tostring(rs.getWirelessOutput()) .. "\n")
+  io.write("输入: " .. tostring(rs.getWirelessInput()) .. "\n")
+  io.write("输出: " .. tostring(rs.getWirelessOutput()) .. "\n")
 elseif options.f then
   if not rs.setWirelessOutput then
-    io.stderr:write("wireless redstone not available\n")
+    io.stderr:write("无线红石不可用\n")
     return 1
   end
   if #args > 0 then
     local value = args[1]
     if not tonumber(value) then
-      io.stderr:write("invalid frequency\n")
+      io.stderr:write("无效频率\n")
       return 1
     end
     rs.setWirelessFrequency(tonumber(value))
   end
-  io.write("freq: " .. tostring(rs.getWirelessFrequency()) .. "\n")
+  io.write("频率: " .. tostring(rs.getWirelessFrequency()) .. "\n")
 else
   local side = sides[args[1]]
   if not side then
-    io.stderr:write("invalid side\n")
+    io.stderr:write("无效方向\n")
     return 1
   end
   if type(side) == "string" then
@@ -65,12 +65,12 @@ else
 
   if options.b then
     if not rs.setBundledOutput then
-      io.stderr:write("bundled redstone not available\n")
+      io.stderr:write("集束红石不可用\n")
       return 1
     end
     local color = colors[args[2]]
     if not color then
-      io.stderr:write("invalid color\n")
+      io.stderr:write("无效颜色\n")
       return 1
     end
     if type(color) == "string" then
@@ -85,8 +85,8 @@ else
       end
       rs.setBundledOutput(side, color, value)
     end
-    io.write("in: " .. rs.getBundledInput(side, color) .. "\n")
-    io.write("out: " .. rs.getBundledOutput(side, color) .. "\n")
+    io.write("输入: " .. rs.getBundledInput(side, color) .. "\n")
+    io.write("输出: " .. rs.getBundledOutput(side, color) .. "\n")
   else
     if #args > 1 then
       local value = args[2]
@@ -97,7 +97,7 @@ else
       end
       rs.setOutput(side, value)
     end
-    io.write("in: " .. rs.getInput(side) .. "\n")
-    io.write("out: " .. rs.getOutput(side) .. "\n")
+    io.write("输入: " .. rs.getInput(side) .. "\n")
+    io.write("输出: " .. rs.getOutput(side) .. "\n")
   end
 end

@@ -1,23 +1,22 @@
-NAME
-  pastebin - download and upload programs from and to pastebin
+名称
+  pastebin - 从pastebin上传或下载代码
 
-SYNOPSIS
+用法
   pastebin get PASTID FILE
   pastebin put FILE
   pastebin run PASTEID [ARGUMENT]...
 
-DESCRIPTION
-  The pastebin program allows downloading programs from pastebin, identified by their paste ID. I can also be used to upload programs to pastebin.
+描述
+  `pastebin`程序可用于从pastebin上下载程序，程序由paste ID区分。该程序也可用于向pastebin上传程序。
+  `pastebin`程序需要用到因特网卡，还需要在模组的配置文件内启用访问互联网的功能。
 
-  The pastebin program requires an internet card and internet access to be enabled in the mod's configuration.
-
-OPTIONS
+选项
   -f
-    do not prompt before overwriting
+    不经提示直接覆盖
 
-EXAMPLES
+样例
   pastebin get AbCdEfGh test
-    Downloads the paste with ID `AbCdEfGh` and writes it to file `test`.
+    下载ID为`AbCdEfGh`的paste，写入到文件`test`中。
 
   pastebin put prog.lua
-    Uploads the program `prog.lua` to pastebin.
+    将程序`prog.lua`上传到pastebin。

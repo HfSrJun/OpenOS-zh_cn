@@ -8,7 +8,7 @@ local color, isPal, evt
 if interactive then
   color, isPal = gpu.getForeground()
 end
-io.write("Press 'Ctrl-C' to exit\n")
+io.write("按'Ctrl-C'退出\n")
 pcall(function()
   repeat
     if #args > 0 then

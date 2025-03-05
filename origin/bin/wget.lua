@@ -5,7 +5,7 @@ local shell = require("shell")
 local text = require("text")
 
 if not component.isAvailable("internet") then
-  io.stderr:write("This program requires an internet card to run.")
+  io.stderr:write("该程序需要因特网卡才能运行。")
   return
 end
 
@@ -13,10 +13,10 @@ local args, options = shell.parse(...)
 options.q = options.q or options.Q
 
 if #args < 1 then
-  io.write("Usage: wget [-fq] <url> [<filename>]\n")
-  io.write(" -f: Force overwriting existing files.\n")
-  io.write(" -q: Quiet mode - no status messages.\n")
-  io.write(" -Q: Superquiet mode - no error messages.")
+  io.write("用法: wget [-fq] <url> [<文件名>]\n")
+  io.write(" -f: 强制覆盖现有文件\n")
+  io.write(" -q: 安静模式，不输出状态信息\n")
+  io.write(" -Q: 超级安静模式，不输出报错信息")
   return
 end
 
@@ -36,9 +36,9 @@ end
 filename = text.trim(filename)
 if filename == "" then
   if not options.Q then
-    io.stderr:write("could not infer filename, please specify one")
+    io.stderr:write("无法推断文件名，请指定一个")
   end
-  return nil, "missing target filename" -- for programs using wget as a function
+  return nil, "missing target filename" -- 提供给调用wget的程序
 end
 filename = shell.resolve(filename)
 
@@ -47,24 +47,24 @@ if fs.exists(filename) then
   preexisted = true
   if not options.f then
     if not options.Q then
-      io.stderr:write("file already exists")
+      io.stderr:write("文件已存在")
     end
-    return nil, "file already exists" -- for programs using wget as a function
+    return nil, "file already exists" -- 提供给调用wget的程序
   end
 end
 
 local f, reason = io.open(filename, "a")
 if not f then
   if not options.Q then
-    io.stderr:write("failed opening file for writing: " .. reason)
+    io.stderr:write("无法打开文件进行写入: " .. reason)
   end
-  return nil, "failed opening file for writing: " .. reason -- for programs using wget as a function
+  return nil, "failed opening file for writing: " .. reason -- 提供给调用wget的程序
 end
 f:close()
 f = nil
 
 if not options.q then
-  io.write("Downloading... ")
+  io.write("下载中... ")
 end
 local result, response = pcall(internet.request, url, nil, {["user-agent"]="Wget/OpenComputers"})
 if result then
@@ -72,14 +72,14 @@ if result then
     for chunk in response do
       if not f then
         f, reason = io.open(filename, "wb")
-        assert(f, "failed opening file for writing: " .. tostring(reason))
+        assert(f, "无法打开文件进行写入: " .. tostring(reason))
       end
       f:write(chunk)
     end
   end)
   if not result then
     if not options.q then
-      io.stderr:write("failed.\n")
+      io.stderr:write("失败\n")
     end
     if f then
       f:close()
@@ -88,12 +88,12 @@ if result then
       end
     end
     if not options.Q then
-      io.stderr:write("HTTP request failed: " .. reason .. "\n")
+      io.stderr:write("HTTP请求失败: " .. reason .. "\n")
     end
-    return nil, reason -- for programs using wget as a function
+    return nil, reason -- 提供给调用wget的程序
   end
   if not options.q then
-    io.write("success.\n")
+    io.write("成功\n")
   end
 
   if f then
@@ -101,15 +101,15 @@ if result then
   end
 
   if not options.q then
-    io.write("Saved data to " .. filename .. "\n")
+    io.write("将文件保存到" .. filename .. "\n")
   end
 else
   if not options.q then
-    io.write("failed.\n")
+    io.write("失败\n")
   end
   if not options.Q then
-    io.stderr:write("HTTP request failed: " .. response .. "\n")
+    io.stderr:write("HTTP请求失败: " .. response .. "\n")
   end
-  return nil, response -- for programs using wget as a function
+  return nil, response -- 提供给调用wget的程序
 end
-return true -- for programs using wget as a function
+return true -- 提供给调用wget的程序
